@@ -71,4 +71,10 @@
     select id, name, password, salt, email, mobile, kind
     from sys_user
   </select>
+
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select u.* from sys_user u
+    where u.name = #{name,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

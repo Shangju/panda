@@ -1,0 +1,22 @@
+五、海外代购网站的设计与实现
+其主要功能如下：
+（1）记录公司员工信息。员工信息包括工号、身份证号、姓名、性别和一个手机号，工号唯一标识每位员工，员工分为代购员和配送员。
+（2）记录采购的商品信息。商品信息包括商品名称、所在超市名称、采购价格、销售价格和商品介绍，系统内部用商品条码唯一标识每种商品。一种商品只在一家超市代购。
+（3）记录顾客信息。顾客信息包括顾客真实姓名、身份证号（清关缴税用）、一个手机号和一个收货地址，系统自动生成唯一的顾客编号。
+（4）记录托运公司信息。托运公司信息包括托运公司名称、电话和地址，系统自动生成唯一的托运公司编号。
+（5）顾客登录网站之后，可以下订单购买商品。订单支付成功后，系统记录唯一的支付凭证编号。顾客需要在订单里指定运送方式：空运或海运。
+（6）代购员根据顾客的订单在超市采购对应商品，一份订单所含的多个商品可能由多名代购员从不同超市采购。
+（7）采购完的商品交由配送员根据顾客订单组合装箱，然后交给托运公司运送。托运公司按顾客订单核对商品名称和数量，然后按顾客的地址进行运送。
+
+
+1.公司员工信息表       staff_info
+staff_id    staff_id_number   staff_name  staf_sex staff_phone   staff_type(0代购员，1是配送员)
+2.商品信息表           goods_info
+goods_id    goods_name      market_name  purchase_price sell_price  goods_introduce
+3.顾客信息表           user_info
+customer_id customer_name customer_id_number   customer_phone customer_address
+4.托运公司信息表       com_info
+company_id  company_name company_phone  company_address
+5.订单交易表           order_info
+order_id    order_type(0空运1海运) order_price
+6.
