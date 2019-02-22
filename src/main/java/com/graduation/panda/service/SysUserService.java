@@ -17,4 +17,7 @@ public interface SysUserService {
 //    Set<String> findPermissions(String userName);
 
     SysUser findById(Long id);
+
+    //注册插入
+    int insert(SysUser record);
 }

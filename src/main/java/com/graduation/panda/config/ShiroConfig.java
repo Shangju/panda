@@ -46,7 +46,9 @@ public class ShiroConfig {
         filterMap.put("/v2/api-docs", "anon");
         filterMap.put("/webjars/springfox-swagger-ui/**", "anon");
         // 其他所有路径交给OAuth2Filter处理
-        filterMap.put("/**", "oauth2");
+//        filterMap.put("/**", "oauth2");
+        //所有路径都不认证
+        filterMap.put("/**", "anon");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
         return shiroFilter;
     }
