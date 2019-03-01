@@ -9,6 +9,17 @@ public class SysUser {
     private String email;
     private String mobile;
     private String kind;
+    private String captcha;
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
+
+
     public Long getId() {
         return id;
     }
