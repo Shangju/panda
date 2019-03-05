@@ -13,15 +13,16 @@ public interface SysUserMapper {
 
     int insert(SysUser record);
 
-
-    SysUser selectByPrimaryKey(Long id);
-
+    SysUser selectByPrimaryKey(String id);
 
     List<SysUser> selectAll();
 
-    int updateByPrimaryKey(SysUser record);
+    void updateByPrimaryKey(SysUser record);
 
     SysUser findByName(@Param(value="name") String name);
+
+    SysUser findByUserId(@Param(value = "userId")String userId);
+
 
 
 }

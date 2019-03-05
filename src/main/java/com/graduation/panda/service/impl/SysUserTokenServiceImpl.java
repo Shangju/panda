@@ -17,7 +17,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService{
     private final static int EXPIRE = 3600 * 12;
 
     @Override
-    public SysUserToken findByUserId(Long userId) {
+    public SysUserToken findByUserId(String userId) {
         return sysUserTokenMapper.findByUserId(userId);
     }
 
@@ -28,14 +28,18 @@ public class SysUserTokenServiceImpl implements SysUserTokenService{
 
     @Override
     public int save(SysUserToken record) {
-        if(record.getId() == null || record.getId() == 0) {
-            return sysUserTokenMapper.insertSelective(record);
-        }
+        return sysUserTokenMapper.insertSelective(record);
+
+
+    }
+
+    @Override
+    public int update(SysUserToken record) {
         return sysUserTokenMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
-    public SysUserToken createToken(long userId) {
+    public SysUserToken createToken(String userId) {
         // 生成一个token
         String token = TokenGenerator.generateToken();
         // 当前时间
@@ -50,14 +54,15 @@ public class SysUserTokenServiceImpl implements SysUserTokenService{
             sysUserToken.setToken(token);
             sysUserToken.setLastUpdateTime(now);
             sysUserToken.setExpireTime(expireTime);
-            // 保存token，这里选择保存到数据库，也可以放到Redis或Session之类可存储的地方
+            // 用户第一次生成token并保存，这里选择保存到数据库，也可以放到Redis或Session之类可存储的地方
             save(sysUserToken);
         } else{
+            sysUserToken.setUserId(userId);
             sysUserToken.setToken(token);
             sysUserToken.setLastUpdateTime(now);
             sysUserToken.setExpireTime(expireTime);
-            // 如果token已经生成，则更新token的过期时间
-            save(sysUserToken);
+            // 如果用户token已经生成，则更新token和过期时间
+            update(sysUserToken);
         }
         return sysUserToken;
     }

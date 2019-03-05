@@ -2,6 +2,10 @@ package com.graduation.panda.model;
 
 public class UserInfo {
     private String customerId;
+
+
+
+    private String adminName;
     private String customerName;
     private String customerNumber;
     private String customerPhone;
@@ -13,7 +17,13 @@ public class UserInfo {
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
+    public String getAdminName() {
+        return adminName;
+    }
 
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
     public String getCustomerName() {
         return customerName;
     }

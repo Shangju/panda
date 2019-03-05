@@ -30,12 +30,22 @@ public class SysUserServiceImpl implements SysUserService{
 //    }
 
     @Override
-    public SysUser findById(Long id) {
+    public SysUser findById(String id) {
         return sysUserMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int insert(SysUser record){
         return sysUserMapper.insert(record);
+    }
+
+    @Override
+    public SysUser findByUserId(String userId){
+        return sysUserMapper.findByUserId(userId);
+    }
+
+    @Override
+    public void updateByPrimaryKey(SysUser record){
+         sysUserMapper.updateByPrimaryKey(record);
     }
 }

@@ -37,6 +37,13 @@ public class HttpResult {
 		r.setData(data);
 		return r;
 	}
+
+	public static HttpResult ok(String msg,Object data) {
+		HttpResult r = new HttpResult();
+		r.setData(data);
+		r.setMsg(msg);
+		return r;
+	}
 	
 	public static HttpResult ok() {
 		return new HttpResult();

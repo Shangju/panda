@@ -16,8 +16,15 @@ public interface SysUserService {
      */
 //    Set<String> findPermissions(String userName);
 
-    SysUser findById(Long id);
+    SysUser findById(String id);
 
     //注册插入
     int insert(SysUser record);
+
+    //根据userId查找用户信息
+    SysUser findByUserId(String userId);
+
+    //更新密码
+    void updateByPrimaryKey(SysUser record);
+
 }

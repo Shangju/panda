@@ -18,7 +18,7 @@ public interface SysUserTokenMapper {
 
     int updateByPrimaryKey(SysUserToken record);
 
-    SysUserToken findByUserId(@Param(value="userId") Long userId);
+    SysUserToken findByUserId(@Param(value="userId") String userId);
 
     SysUserToken findByToken(@Param(value="token") String token);
 }

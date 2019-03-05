@@ -28,4 +28,11 @@ public class TestController {
     public String index(){
         return "index.html";
     }
+
+    @RequestMapping("/cookie")
+    @ResponseBody
+    public String cookie(@CookieValue(value = "token")String token){
+        System.out.println(token);
+        return token;
+    }
 }

@@ -10,6 +10,7 @@ import com.graduation.panda.service.SysUserTokenService;
 import com.graduation.panda.utils.PasswordUtils;
 import com.graduation.panda.utils.ShiroUtils;
 import com.graduation.panda.utils.http.HttpResult;
+import com.graduation.panda.utils.makeNumberUtils;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,10 +107,12 @@ public class SysLoginController {
         String xPassword = PasswordUtils.encrypte(password,salt);
         sysUser.setPassword(xPassword);
         sysUser.setSalt(salt);
+        String userId = makeNumberUtils.customerMake();
+        sysUser.setUserId(userId);
 
         SysUser user = sysUserService.findByName(username);
-        // 账号不存在、密码错误
 
+        // 账号已经存在
         if (user != null) {
             return HttpResult.error("账号已经存在");
         }
@@ -154,13 +157,8 @@ public class SysLoginController {
             return HttpResult.error("密码不正确");
         }
 
-        // 账号锁定
-//        if (user.getStatus() == 0) {
-//            return HttpResult.error("账号已被锁定,请联系管理员");
-//        }
-
         // 生成token，并保存到数据库
-        SysUserToken data = sysUserTokenService.createToken(user.getId());
+        SysUserToken data = sysUserTokenService.createToken(user.getUserId());
         return HttpResult.ok(data);
     }
 
@@ -176,6 +174,7 @@ public class SysLoginController {
 
     /**
      * 登出接口
+     *@GetMapping: @RequestMapping(method =RequestMethod.GET)
      */
     @GetMapping(value = "/sys/logout")
     public HttpResult logout(HttpServletRequest request) {

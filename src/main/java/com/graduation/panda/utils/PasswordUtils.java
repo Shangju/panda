@@ -42,4 +42,10 @@ public class PasswordUtils {
     public static String getSalt() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
     }
+
+
+    public static void main(String[] args) {
+        System.out.println(PasswordUtils.encrypte("qq","a86e92945f924a9892b7"));
+    }
 }
+

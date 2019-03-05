@@ -3,24 +3,38 @@
 <mapper namespace="com.graduation.panda.dao.UserInfoMapper">
     <resultMap id="BaseResultMap" type="com.graduation.panda.model.UserInfo">
         <id column="customer_id" jdbcType="VARCHAR" property="customerId" />
+        <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
         <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
         <result column="customer_number" jdbcType="VARCHAR" property="customerNumber" />
         <result column="customer_phone" jdbcType="VARCHAR" property="customerPhone" />
         <result column="customer_address" jdbcType="VARCHAR" property="customerAddress" />
     </resultMap>
     <insert id="insert" parameterType="com.graduation.panda.model.UserInfo">
-        insert into user_info (customer_id, customer_name, customer_number,
+        insert into user_info (customer_id, admin_name,customer_name, customer_number,
                        customer_phone, customer_address)
-values (#{customerId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{customerNumber,jdbcType=VARCHAR},
+values (#{customerId,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR},#{customerName,jdbcType=VARCHAR}, #{customerNumber,jdbcType=VARCHAR},
         #{customerPhone,jdbcType=VARCHAR}, #{customerAddress,jdbcType=VARCHAR})
     </insert>
     <update id="updateByPrimaryKey" parameterType="com.graduation.panda.model.UserInfo">
-        update sys_user
-        set customer_name = #{customerName,jdbcType=VARCHAR},
-        customer_number = #{customerNumber,jdbcType=VARCHAR},
-        customer_phone = #{customerPhone,jdbcType=VARCHAR},
-        customer_address = #{customerAddress,jdbcType=VARCHAR}
-        where customer_id = #{customerId}
+        update user_info
+        <set>
+            <if test="adminName != null">
+                admin_name = #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerNumber != null">
+                customer_number = #{customerNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="customerPhone != null">
+                customer_phone = #{customerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="customerAddress != null">
+                customer_address = #{customerAddress,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where customer_id = #{customerId,jdbcType=VARCHAR}
     </update>
 
     <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">

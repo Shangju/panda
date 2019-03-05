@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduation.panda.dao.SysUserTokenMapper">
     <resultMap id="BaseResultMap" type="com.graduation.panda.model.SysUserToken">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="token" jdbcType="VARCHAR" property="token" />
         <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
         <result column="create_by" jdbcType="BIGINT" property="createBy" />
@@ -12,32 +11,29 @@
         <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, token, expire_time, create_by, create_time, last_update_by, last_update_time
+         user_id, token, expire_time, create_by, create_time, last_update_by, last_update_time
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from sys_user_token
-        where id = #{id,jdbcType=BIGINT}
+        where user_id = #{userId,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from sys_user_token
-        where id = #{id,jdbcType=BIGINT}
+        where user_id = #{userId,jdbcType=VARCHAR}
     </delete>
     <insert id="insert" parameterType="com.graduation.panda.model.SysUserToken">
-        insert into sys_user_token (id, user_id, token,
+        insert into sys_user_token ( user_id, token,
         expire_time, create_by, create_time,
         last_update_by, last_update_time)
-        values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{token,jdbcType=VARCHAR},
+        values ( #{userId,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR},
         #{expireTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
         #{lastUpdateBy,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.graduation.panda.model.SysUserToken">
         insert into sys_user_token
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="userId != null">
                 user_id,
             </if>
@@ -61,9 +57,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=BIGINT},
-            </if>
             <if test="userId != null">
                 #{userId,jdbcType=BIGINT},
             </if>
@@ -90,9 +83,6 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.graduation.panda.model.SysUserToken">
         update sys_user_token
         <set>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=BIGINT},
-            </if>
             <if test="token != null">
                 token = #{token,jdbcType=VARCHAR},
             </if>
@@ -112,20 +102,20 @@
                 last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{id,jdbcType=BIGINT}
+        where user_id = #{userId,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.graduation.panda.model.SysUserToken">
         update sys_user_token
-        set user_id = #{userId,jdbcType=BIGINT},
+        set
         token = #{token,jdbcType=VARCHAR},
         expire_time = #{expireTime,jdbcType=TIMESTAMP},
         create_by = #{createBy,jdbcType=BIGINT},
         create_time = #{createTime,jdbcType=TIMESTAMP},
         last_update_by = #{lastUpdateBy,jdbcType=BIGINT},
         last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
-        where id = #{id,jdbcType=BIGINT}
+        where user_id = #{user_id,jdbcType=BIGINT}
     </update>
-    <select id="findByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="findByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from sys_user_token

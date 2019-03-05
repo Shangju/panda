@@ -3,6 +3,7 @@ package com.graduation.panda.model;
 public class SysUser {
 
     private Long id;
+    private String userId;
     private String name;
     private String password;
     private String salt;
@@ -18,7 +19,13 @@ public class SysUser {
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
     }
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;
