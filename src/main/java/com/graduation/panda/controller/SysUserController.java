@@ -17,6 +17,11 @@ public class SysUserController {
     @Autowired
     SysUserTokenService tokenService;
 
+    /**
+     * 赋给主页登录信息
+     * @param request
+     * @return
+     */
     @PostMapping("/userInfo")
     @ResponseBody
     public HttpResult getUserInfo(HttpServletRequest request){
@@ -24,6 +29,9 @@ public class SysUserController {
         for(Cookie c :cookies){
             if(c.getName() != null && c.getName().equals("token")){
                 SysUserToken userToken = tokenService.findByToken(c.getValue());
+                if(userToken == null){
+                    return HttpResult.error("token已经过期");
+                }
                 return HttpResult.ok(userToken);
             }
         }

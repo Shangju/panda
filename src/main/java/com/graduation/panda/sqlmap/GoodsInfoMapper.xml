@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduation.panda.dao.GoodsInfoMapper">
+    <resultMap id="BaseResultMap" type="com.graduation.panda.model.GoodsInfo">
+        <id column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+        <result column="market_name" jdbcType="VARCHAR" property="marketName" />
+        <result column="purchase_price" jdbcType="VARCHAR" property="purchasePrice" />
+        <result column="sell_price" jdbcType="VARCHAR" property="sellPrice" />
+        <result column="goods_introduce" jdbcType="VARCHAR" property="goodsIntroduce" />
+        <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+        <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+        <result column="image" jdbcType="VARCHAR" property="image" />
+        <result column="order_by" jdbcType="VARCHAR" property="orderBy" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.graduation.panda.model.UserInfo">
+        insert into user_info (customer_id, admin_name,customer_name, customer_number,
+        customer_phone, customer_address)
+        values (#{customerId,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR},#{customerName,jdbcType=VARCHAR}, #{customerNumber,jdbcType=VARCHAR},
+        #{customerPhone,jdbcType=VARCHAR}, #{customerAddress,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.graduation.panda.model.UserInfo">
+        update user_info
+        <set>
+            <if test="adminName != null">
+                admin_name = #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerNumber != null">
+                customer_number = #{customerNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="customerPhone != null">
+                customer_phone = #{customerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="customerAddress != null">
+                customer_address = #{customerAddress,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where customer_id = #{customerId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findByKeyword" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from goods_info
+        where keyword = #{keyword,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

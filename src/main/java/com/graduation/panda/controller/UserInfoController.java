@@ -30,6 +30,11 @@ public class UserInfoController {
     @Autowired
     SysUserService sysUserService;
 
+    /**
+     * 编辑用户信息接口
+     * @param userInfo
+     * @return
+     */
     @PostMapping(value = "/updateUserInfo")
     @ResponseBody
     public HttpResult insertInfo(@RequestBody UserInfo userInfo){
@@ -45,6 +50,11 @@ public class UserInfoController {
         return HttpResult.ok(userNew);
     }
 
+    /**
+     * 获取用户信息接口
+     * @param token
+     * @return
+     */
     @PostMapping("/getUserInfo")
     @ResponseBody
     public HttpResult getUserInfo(@CookieValue(value = "token")String token){
@@ -58,6 +68,12 @@ public class UserInfoController {
         }
     }
 
+    /**
+     * 更新密码接口
+     * @param map
+     * @param token
+     * @return
+     */
     @PostMapping("/updatePassword")
     @ResponseBody
     public HttpResult updatePassword(@RequestBody HashMap map,@CookieValue(value = "token")String token){

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduation.panda.dao.GoodsDetailMapper">
+    <resultMap id="BaseResultMap" type="com.graduation.panda.model.GoodsDetail">
+        <id column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+        <result column="market_name" jdbcType="VARCHAR" property="marketName" />
+        <result column="purchase_price" jdbcType="VARCHAR" property="purchasePrice" />
+        <result column="sell_price" jdbcType="VARCHAR" property="sellPrice" />
+        <result column="goods_introduce" jdbcType="VARCHAR" property="goodsIntroduce" />
+        <result column="main_image" jdbcType="VARCHAR" property="mainImage" />
+        <result column="sub_images" jdbcType="VARCHAR" property="subImages" />
+        <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
+    </resultMap>
+
+    <select id="findByGoodsId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from goods_detail
+        where goods_id = #{goodsId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

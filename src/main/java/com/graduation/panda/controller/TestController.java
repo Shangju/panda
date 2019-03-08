@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
+/**
+ * 测试controller
+ */
 @Controller
 public class TestController {
 
@@ -22,6 +26,7 @@ public class TestController {
         HttpSession session = request.getSession();
         System.out.println(session.getId());
         return testService.findAll();
+
     }
 
     @RequestMapping("/index")

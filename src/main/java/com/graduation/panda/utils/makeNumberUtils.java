@@ -14,6 +14,15 @@ public class makeNumberUtils {
         return str.toString();
     }
 
+    public static String goodsMake(){
+        StringBuilder str = new StringBuilder("G");
+        for(int i = 0; i < 9; i++){
+            str.append((int) (1 + Math.random() * 9));
+        }
+//        String string = str.toString();
+        return str.toString();
+    }
+
     /**
      * 配送员员工编号
      * @param args
@@ -33,6 +42,7 @@ public class makeNumberUtils {
 //        for (int i = 0; i < 30; i++) {
 //            System.out.print((int) (1 + Math.random() * 9));
 //        }
-        System.out.println(makeNumberUtils.customerMake());
+//        System.out.println(makeNumberUtils.customerMake());
+        System.out.println(makeNumberUtils.goodsMake());
     }
 }

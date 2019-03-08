@@ -159,6 +159,7 @@ public class SysLoginController {
 
         // 生成token，并保存到数据库
         SysUserToken data = sysUserTokenService.createToken(user.getUserId());
+        session.setAttribute("userId",user.getUserId());
         return HttpResult.ok(data);
     }
 
@@ -179,7 +180,7 @@ public class SysLoginController {
     @GetMapping(value = "/sys/logout")
     public HttpResult logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.removeAttribute("key");
+        session.removeAttribute("userId");
 //        ShiroUtils.logout();
         return HttpResult.ok();
     }
