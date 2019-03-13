@@ -10,6 +10,16 @@ public class GoodsDetail {
     private String mainImage;
     private String subImages;
     private String detail;
+    private int stock;
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
     public String getDetail() {
         return detail;
     }

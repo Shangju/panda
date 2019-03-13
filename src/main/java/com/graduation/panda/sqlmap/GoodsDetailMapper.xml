@@ -11,6 +11,7 @@
         <result column="main_image" jdbcType="VARCHAR" property="mainImage" />
         <result column="sub_images" jdbcType="VARCHAR" property="subImages" />
         <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
+        <result column="stock" jdbcType="INTEGER" property="stock" />
     </resultMap>
 
     <select id="findByGoodsId" parameterType="java.lang.String" resultMap="BaseResultMap">

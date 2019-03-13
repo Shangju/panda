@@ -1,6 +1,6 @@
 package com.graduation.panda.utils;
 
-public class makeNumberUtils {
+public class MakeNumberUtils {
     /**
      * 顾客编号
      * @return
@@ -42,7 +42,7 @@ public class makeNumberUtils {
 //        for (int i = 0; i < 30; i++) {
 //            System.out.print((int) (1 + Math.random() * 9));
 //        }
-//        System.out.println(makeNumberUtils.customerMake());
-        System.out.println(makeNumberUtils.goodsMake());
+//        System.out.println(MakeNumberUtils.customerMake());
+        System.out.println(MakeNumberUtils.goodsMake());
     }
 }

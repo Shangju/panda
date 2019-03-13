@@ -1,6 +1,5 @@
 package com.graduation.panda.controller;
 
-import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.graduation.panda.model.LoginBean;
 import com.graduation.panda.model.SysUser;
@@ -8,9 +7,8 @@ import com.graduation.panda.model.SysUserToken;
 import com.graduation.panda.service.SysUserService;
 import com.graduation.panda.service.SysUserTokenService;
 import com.graduation.panda.utils.PasswordUtils;
-import com.graduation.panda.utils.ShiroUtils;
 import com.graduation.panda.utils.http.HttpResult;
-import com.graduation.panda.utils.makeNumberUtils;
+import com.graduation.panda.utils.MakeNumberUtils;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @RestController
 public class SysLoginController {
@@ -46,7 +43,6 @@ public class SysLoginController {
     public void captcha(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
-//        HttpSession session = request.getSession();
 
         // 生成文字验证码
         String text = producer.createText();
@@ -107,7 +103,7 @@ public class SysLoginController {
         String xPassword = PasswordUtils.encrypte(password,salt);
         sysUser.setPassword(xPassword);
         sysUser.setSalt(salt);
-        String userId = makeNumberUtils.customerMake();
+        String userId = MakeNumberUtils.customerMake();
         sysUser.setUserId(userId);
 
         SysUser user = sysUserService.findByName(username);

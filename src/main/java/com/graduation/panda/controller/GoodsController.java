@@ -42,11 +42,12 @@ public class GoodsController {
         String goodsId = map.get("goodsId").toString();
         if(goodsId != null){
             GoodsDetail detail = goodsDetailService.findByGoodsId(goodsId);
+            if(detail == null){
+                return HttpResult.error("没有这个商品");
+            }
             return HttpResult.ok(detail);
         }else {
             return HttpResult.error("信息错误");
         }
-
     }
-
 }
