@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduation.panda.dao.GoodsCartMapper">
+    <resultMap id="BaseResultMap" type="com.graduation.panda.model.GoodsCart">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="product_id" jdbcType="VARCHAR" property="productId" />
+        <result column="quantity" jdbcType="INTEGER" property="quantity" />
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="product_price" jdbcType="VARCHAR" property="productPrice" />
+        <result column="main_image" jdbcType="VARCHAR" property="mainImage" />
+        <result column="checked" jdbcType="BOOLEAN" property="checked" />
+        <result column="product_stock" jdbcType="VARCHAR" property="productStock" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from goods_cart
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insertSingleCart" parameterType="com.graduation.panda.model.GoodsCart">
+        insert into goods_cart (id,user_id, product_id, quantity,
+        product_name, product_price,main_image, checked,product_stock,
+        status)
+        values (#{id,jdbcType=BIGINT},#{userId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{quantity,jdbcType=VARCHAR},
+        #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=VARCHAR},#{mainImage,jdbcType=VARCHAR}, #{checked,jdbcType=VARCHAR},
+        #{productStock,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByKey" parameterType="com.graduation.panda.model.GoodsCart">
+        update goods_cart set quantity = #{quantity}
+        where user_id = #{userId} and product_id = #{productId}
+    </update>
+
+    <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from goods_cart
+    where user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <!--批量插入购物车信息-->
+    <insert id="insertCart" parameterType="com.graduation.panda.model.GoodsCart" >
+        insert into goods_cart(id, user_id, product_id, quantity,
+        product_name, product_price, main_image, checked, product_stock,
+        status) VALUES
+        <foreach collection="list" item="cart" separator=",">
+            (#{cart.id},#{cart.userId},#{cart.productId},#{cart.quantity},
+            #{cart.productName},#{cart.productPrice},#{cart.mainImage},#{cart.checked},
+            #{cart.productStock},#{cart.status})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByKey" parameterType="java.lang.String">
+        delete from goods_cart
+        where product_id = #{productId} and user_id = #{userId}
+    </delete>
+
+</mapper>

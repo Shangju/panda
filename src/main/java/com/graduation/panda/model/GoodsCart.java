@@ -1,18 +1,38 @@
 package com.graduation.panda.model;
 
-public class CartInfo {
+public class GoodsCart {
+    private long id;
     private String productId;
+    private String userId;
     private int quantity;
     private String productName;
     private int productPrice;
     private String mainImage;
     private boolean checked;
     private int productStock;
+    private int status;
 
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+    public int getStatus() {
+        return status;
+    }
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     public boolean isChecked() {
         return checked;
     }
-
     public void setChecked(boolean checked) {
         this.checked = checked;
     }

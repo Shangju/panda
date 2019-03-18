@@ -31,11 +31,11 @@ public class SysInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
         //有token则将token存入request
-//        SysUserToken user = sysUserTokenService.findByToken(token);
-//        if(user == null){
-//            return true;
-//        }
-        request.setAttribute("token", token);
+        SysUserToken user = sysUserTokenService.findByToken(token);
+        if(user == null){
+            return true;
+        }
+        request.setAttribute("user", user);
         return  true;
     }
     /**
