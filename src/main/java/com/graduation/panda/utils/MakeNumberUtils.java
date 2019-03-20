@@ -2,7 +2,7 @@ package com.graduation.panda.utils;
 
 public class MakeNumberUtils {
     /**
-     * 顾客编号
+     * 顾客编号，用U开头
      * @return
      */
     public static String customerMake(){
@@ -14,12 +14,27 @@ public class MakeNumberUtils {
         return str.toString();
     }
 
+    /**
+     * 商品编号，用G开头
+     * @return
+     */
     public static String goodsMake(){
         StringBuilder str = new StringBuilder("G");
         for(int i = 0; i < 9; i++){
             str.append((int) (1 + Math.random() * 9));
         }
-//        String string = str.toString();
+        return str.toString();
+    }
+
+    /**
+     * 订单编号，用G开头
+     * @return
+     */
+    public static String orderMake(){
+        StringBuilder str = new StringBuilder("O");
+        for(int i = 0; i < 12; i++){
+            str.append((int) (1 + Math.random() * 9));
+        }
         return str.toString();
     }
 

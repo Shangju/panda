@@ -25,6 +25,22 @@ public class TestController {
     public Object findAll(HttpServletRequest request) {
         HttpSession session = request.getSession();
         System.out.println(session.getId());
+        //        System.out.println(session.getId());
+        System.out.println(session.getAttribute("key"));
+        System.out.println(session.getAttribute("userId"));
+        System.out.println(session.getAttribute("orderId"));
+        session.setMaxInactiveInterval(30*60);
+        // 获取session中所有的键值
+        Enumeration<String> attrs = session.getAttributeNames();
+        // 遍历attrs中的
+        while(attrs.hasMoreElements()){
+        // 获取session键值
+            String name = attrs.nextElement().toString();
+            // 根据键值取session中的值
+            Object vakue = session.getAttribute(name);
+            // 打印结果
+            System.out.println("------" + name + ":" + vakue +"--------\n");
+        }
         return testService.findAll();
 
     }

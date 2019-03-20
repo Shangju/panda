@@ -40,16 +40,21 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public void insertSingleCart(GoodsCart goodsCart){
+        //获取用户原本的购物车记录
         List<GoodsCart> cartList = cartMapper.selectByUserId(goodsCart.getUserId());
+        //如果有记录则将加入的商品与购物车的商品对比，有一样的就更新数量，没有就插入新数据
+        boolean flag = false;
         if (cartList.size() > 0) {
             for (GoodsCart cart : cartList) {
                 if (cart.getProductId().equals(goodsCart.getProductId())) {
                     goodsCart.setQuantity(cart.getQuantity() + goodsCart.getQuantity());
                     cartMapper.updateByKey(goodsCart);
+                    flag = true;
                     break;
                 }
             }
-        }else {
+        }
+        if (!flag) {
             cartMapper.insertSingleCart(goodsCart);
         }
     }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduation.panda.dao.OrderInfoMapper">
+    <resultMap id="BaseResultMap" type="com.graduation.panda.model.OrderInfo">
+        <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="order_type" jdbcType="VARCHAR" property="orderType" />
+        <result column="total_price" jdbcType="VARCHAR" property="totalPrice" />
+        <result column="pay" jdbcType="BOOLEAN" property="pay" />
+        <result column="receipt" jdbcType="BOOLEAN" property="receipt" />
+        <result column="ship_time" jdbcType="VARCHAR" property="shipTime" />
+        <result column="status" jdbcType="BOOLEAN" property="status" />
+    </resultMap>
+
+    <insert id="insertOrder" parameterType="com.graduation.panda.model.OrderInfo">
+        insert into order_info (order_id,user_id, order_type, total_price, pay,
+        receipt, ship_time,status)
+        values (#{orderId}, #{userId}, #{orderType}, #{totalPrice}, #{pay},
+        #{receipt}, #{shipTime},#{status})
+    </insert>
+
+    <select id="findByOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from order_info
+        where order_id = #{orderId}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from order_info
+        where user_id = #{userId} and status = true and pay = false
+    </select>
+
+</mapper>

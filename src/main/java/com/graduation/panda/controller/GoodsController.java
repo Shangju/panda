@@ -22,7 +22,11 @@ public class GoodsController {
     @Autowired
     GoodsDetailService goodsDetailService;
 
-
+    /**
+     * 显示商品列表
+     * @param goodsInfo
+     * @return
+     */
     @PostMapping("/goodsList")
     @ResponseBody
     public HttpResult goodsList(@RequestBody GoodsInfo goodsInfo){
@@ -36,6 +40,11 @@ public class GoodsController {
         }
     }
 
+    /**
+     * 获取商品详细信息
+     * @param map
+     * @return
+     */
     @PostMapping("/loadDetail")
     @ResponseBody
     public HttpResult loadDetail(@RequestBody HashMap map){

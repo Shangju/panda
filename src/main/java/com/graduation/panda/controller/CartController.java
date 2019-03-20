@@ -172,6 +172,13 @@ public class CartController {
         }
     }
 
+    /**
+     * 删除选中的商品
+     * @param request
+     * @param response
+     * @param cartInfos
+     * @return
+     */
     @PostMapping("/cart/deleteSelectProduct")
     @ResponseBody
     public HttpResult deleteSelectProduct(HttpServletRequest request,HttpServletResponse response,@RequestBody List<GoodsCart> cartInfos){

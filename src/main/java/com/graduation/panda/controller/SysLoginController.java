@@ -6,7 +6,9 @@ import com.graduation.panda.model.SysUser;
 import com.graduation.panda.model.SysUserToken;
 import com.graduation.panda.service.SysUserService;
 import com.graduation.panda.service.SysUserTokenService;
+import com.graduation.panda.utils.CookieUtils;
 import com.graduation.panda.utils.PasswordUtils;
+import com.graduation.panda.utils.StringUtils;
 import com.graduation.panda.utils.http.HttpResult;
 import com.graduation.panda.utils.MakeNumberUtils;
 import org.apache.log4j.Logger;
@@ -52,24 +54,8 @@ public class SysLoginController {
         BufferedImage image = producer.createImage(text);
         // 保存到验证码到 session
 //        ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
-
         HttpSession session = request.getSession();
         session.setAttribute("key",text);
-//        System.out.println(session.getId());
-//        System.out.println(session.getAttribute("key"));
-//        session.setMaxInactiveInterval(30*60);
-//        // 获取session中所有的键值
-//        Enumeration<String> attrs = session.getAttributeNames();
-//        // 遍历attrs中的
-//        while(attrs.hasMoreElements()){
-//        // 获取session键值
-//            String name = attrs.nextElement().toString();
-//            // 根据键值取session中的值
-//            Object vakue = session.getAttribute(name);
-//            // 打印结果
-//            System.out.println("------" + name + ":" + vakue +"--------\n");
-//        }
-
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
@@ -155,7 +141,6 @@ public class SysLoginController {
 
         // 生成token，并保存到数据库
         SysUserToken data = sysUserTokenService.createToken(user.getUserId());
-        session.setAttribute("userId",user.getUserId());
         return HttpResult.ok(data);
     }
 
@@ -174,10 +159,14 @@ public class SysLoginController {
      *@GetMapping: @RequestMapping(method =RequestMethod.GET)
      */
     @GetMapping(value = "/sys/logout")
-    public HttpResult logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.removeAttribute("userId");
-//        ShiroUtils.logout();
+    public HttpResult logout(HttpServletRequest request,HttpServletResponse response) {
+        //获取Cookie里面的token，如果为空，则继续执行
+        String token = CookieUtils.getCookieValue(request,"token");
+        if(StringUtils.isBlank(token)){
+            return HttpResult.ok();
+        }else {
+            CookieUtils.deleteCookie(request,response,"token");
+        }
         return HttpResult.ok();
     }
 }
