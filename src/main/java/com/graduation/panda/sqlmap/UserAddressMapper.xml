@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduation.panda.dao.UserAddressMapper">
+    <resultMap id="BaseResultMap" type="com.graduation.panda.model.UserAddress">
+        <id column="address_id" jdbcType="BIGINT" property="addressId" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+        <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+        <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+        <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+        <result column="default_status" jdbcType="BOOLEAN" property="defaultStatus" />
+        <result column="data_flag" jdbcType="BOOLEAN" property="dataFlag" />
+        <result column="create_time" jdbcType="DATE" property="createTime" />
+    </resultMap>
+
+    <select id="findByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from user_Address
+        where user_id = #{userId,jdbcType=VARCHAR} and data_flag = TRUE
+    </select>
+
+</mapper>

@@ -1,10 +1,8 @@
 package com.graduation.panda.controller;
 
+import com.alipay.api.AlipayApiException;
 import com.graduation.panda.model.*;
-import com.graduation.panda.service.MyOrderService;
-import com.graduation.panda.service.OrderService;
-import com.graduation.panda.service.SysUserService;
-import com.graduation.panda.service.SysUserTokenService;
+import com.graduation.panda.service.*;
 import com.graduation.panda.utils.CookieUtils;
 import com.graduation.panda.utils.MakeNumberUtils;
 import com.graduation.panda.utils.StringUtils;
@@ -38,6 +36,15 @@ public class OrderController {
 
     @Autowired
     MyOrderService myOrderService;
+
+    @Autowired
+    UserInfoService userInfoService;
+
+    @Autowired
+    UserAddressService userAddressService;
+
+    @Autowired
+    PayService payService;
 
     /**
      * 提交订单接口
@@ -102,6 +109,49 @@ public class OrderController {
     }
 
     /**
+     *获取用户的收货地址
+     * @param request
+     * @return
+     */
+    @PostMapping("/getAddressList")
+    @ResponseBody
+    public HttpResult getAddressList(HttpServletRequest request){
+        //查询用户的收货地址
+        HttpSession session = request.getSession();
+        String userId = (String)session.getAttribute("userId");
+        List<UserAddress> user= userAddressService.findByUserId(userId);
+        return HttpResult.ok(user);
+    }
+
+    /**
+     * 创建支付订单
+     * @param request
+     * @return
+     * @throws AlipayApiException
+     */
+    @PostMapping("/createOrderPay")
+    @ResponseBody
+    public HttpResult createOrderPay(HttpServletRequest request) throws AlipayApiException {
+        HttpSession session = request.getSession();
+        String userId = (String)session.getAttribute("userId");
+        String orderId = (String)session.getAttribute("orderId");
+        OrderInfo orderInfo = orderService.findByOrderId(orderId);
+        List<OrderGoods> orderGoods = orderService.findGoodsByOrderId(orderId);
+        StringBuilder subject = new StringBuilder("");
+        for (OrderGoods goods : orderGoods){
+            subject.append(goods.getProductName());
+        }
+        String totalPrice = String.valueOf(orderInfo.getTotalPrice());
+        AlipayBean alipayBean = new AlipayBean();
+        alipayBean.setOut_trade_no(orderId);
+        alipayBean.setSubject(subject.toString());
+        alipayBean.setTotal_amount(totalPrice);
+        alipayBean.setBody(subject.toString());
+
+        String msg = payService.aliPay(alipayBean);
+        return HttpResult.ok(msg);
+    }
+    /**
      * 获取所有的订单及相应的订单商品
      * @param request
      * @return
@@ -144,4 +194,6 @@ public class OrderController {
         MyOrders myOrders =myOrderService.selectSingleOrder(hashMap);
         return HttpResult.ok(myOrders);
     }
+
+
 }

@@ -1,5 +1,8 @@
 package com.graduation.panda.controller;
 
+import com.alipay.api.AlipayApiException;
+import com.graduation.panda.model.AlipayBean;
+import com.graduation.panda.service.PayService;
 import com.graduation.panda.service.TestService;
 import com.graduation.panda.service.impl.TestServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 /**
  * 测试controller
@@ -19,6 +23,32 @@ public class TestController {
 
     @Autowired
     TestService testService;
+
+    @Autowired
+    private PayService payService;
+
+    /**
+     * 阿里支付
+     * @param
+     * @param
+     * @return
+     * @throws AlipayApiException
+     */
+    @PostMapping(value = "alipay")
+    @ResponseBody
+    public String alipay(@RequestBody HashMap map) throws AlipayApiException {
+        String outTradeNo = (String)map.get("outTradeNo");
+        String subject = (String)map.get("subject");
+        String totalAmount = (String)map.get("totalAmount");
+        String body = (String)map.get("body");
+        AlipayBean alipayBean = new AlipayBean();
+        alipayBean.setOut_trade_no(outTradeNo);
+        alipayBean.setSubject(subject);
+        alipayBean.setTotal_amount(totalAmount);
+        alipayBean.setBody(body);
+        System.out.println(payService.aliPay(alipayBean));
+        return payService.aliPay(alipayBean);
+    }
 
     @PostMapping(value="/findAll")
     @ResponseBody

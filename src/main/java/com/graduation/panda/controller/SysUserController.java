@@ -30,11 +30,11 @@ public class SysUserController {
             if(c.getName() != null && c.getName().equals("token")){
                 SysUserToken userToken = tokenService.findByToken(c.getValue());
                 if(userToken == null){
-                    return HttpResult.error("token已经过期");
+                    return HttpResult.ok("token已经过期");
                 }
                 return HttpResult.ok(userToken);
             }
         }
-        return HttpResult.error("token不存在");
+        return HttpResult.ok("token不存在");
     }
 }
