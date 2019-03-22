@@ -1,5 +1,7 @@
 package com.graduation.panda.model;
 
+import java.util.Date;
+
 public class OrderInfo {
     private String OrderId;
     private String UserId;
@@ -8,8 +10,15 @@ public class OrderInfo {
     private boolean pay;
     private boolean receipt;
     private String shipTime;
+    private Date createTime;
     private boolean status;
+    public Date getCreateTime() {
+        return createTime;
+    }
 
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
     public String getOrderId() {
         return OrderId;
     }

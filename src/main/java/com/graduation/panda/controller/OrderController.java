@@ -37,8 +37,6 @@ public class OrderController {
     @Autowired
     MyOrderService myOrderService;
 
-    @Autowired
-    UserInfoService userInfoService;
 
     @Autowired
     UserAddressService userAddressService;

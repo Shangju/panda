@@ -17,12 +17,23 @@ public interface SysUserMapper {
 
     List<SysUser> selectAll();
 
+    /**
+     * 更新用户信息，包括资料与密码
+     * @param record
+     */
     void updateByPrimaryKey(SysUser record);
 
-    SysUser findByName(@Param(value="name") String name);
+    /**
+     * 通过登录名adminName查询用户信息
+     * @param adminName
+     * @return
+     */
+    SysUser findByAdminName(String adminName);
 
-    SysUser findByUserId(@Param(value = "userId")String userId);
-
-
-
+    /**
+     * 通过userId查询用户信息
+     * @param userId
+     * @return
+     */
+    SysUser findByUserId(String userId);
 }

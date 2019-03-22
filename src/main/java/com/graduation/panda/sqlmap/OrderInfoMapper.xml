@@ -9,14 +9,15 @@
         <result column="pay" jdbcType="BOOLEAN" property="pay" />
         <result column="receipt" jdbcType="BOOLEAN" property="receipt" />
         <result column="ship_time" jdbcType="VARCHAR" property="shipTime" />
+        <result column="create_time" jdbcType="DATE" property="createTime" />
         <result column="status" jdbcType="BOOLEAN" property="status" />
     </resultMap>
 
     <insert id="insertOrder" parameterType="com.graduation.panda.model.OrderInfo">
         insert into order_info (order_id,user_id, order_type, total_price, pay,
-        receipt, ship_time,status)
+        receipt, create_time,status)
         values (#{orderId}, #{userId}, #{orderType}, #{totalPrice}, #{pay},
-        #{receipt}, #{shipTime},#{status})
+        #{receipt}, #{createTime},#{status})
     </insert>
 
     <select id="findByOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">

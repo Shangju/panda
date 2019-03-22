@@ -39,8 +39,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("Kitty API Doc")
-                .description("This is a restful api document of Kitty.")
+                .title("Panda API Doc")
+                .description("This is a restful api document of Panda.")
                 .version("1.0")
                 .build();
     }

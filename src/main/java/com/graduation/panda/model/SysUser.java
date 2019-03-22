@@ -1,24 +1,31 @@
 package com.graduation.panda.model;
 
+import java.util.Date;
+
 public class SysUser {
 
-    private Long id;
+    private int id;
     private String userId;
-    private String name;
-    private String password;
-    private String salt;
-    private String email;
-    private String mobile;
-    private String kind;
+    private String adminName;
+    private String userPassword;
+    private String userSalt;
+    private String userEmail;
+    private String userPhone;
+    private Date createTime;
+    private String userAddress;
+    private String userName;
+    private String userNum;
+    private String userKind;
     private String captcha;
 
-    public String getCaptcha() {
-        return captcha;
+    public int getId() {
+        return id;
     }
 
-    public void setCaptcha(String captcha) {
-        this.captcha = captcha;
+    public void setId(int id) {
+        this.id = id;
     }
+
     public String getUserId() {
         return userId;
     }
@@ -27,46 +34,94 @@ public class SysUser {
         this.userId = userId;
     }
 
-    public Long getId() {
-        return id;
+    public String getAdminName() {
+        return adminName;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
-    public String getName() {
-        return name;
+
+    public String getUserPassword() {
+        return userPassword;
     }
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
-    public String getPassword() {
-        return password;
+
+    public String getUserSalt() {
+        return userSalt;
     }
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+
+    public void setUserSalt(String userSalt) {
+        this.userSalt = userSalt;
     }
-    public String getSalt() {
-        return salt;
+
+    public String getUserEmail() {
+        return userEmail;
     }
-    public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
-    public String getEmail() {
-        return email;
+
+    public String getUserPhone() {
+        return userPhone;
     }
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
-    public String getMobile() {
-        return mobile;
+
+    public Date getCreateTime() {
+        return createTime;
     }
-    public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
-    public String getKind() {
-        return kind;
+
+    public String getUserAddress() {
+        return userAddress;
     }
-    public void setKind(String kind) {
-        this.kind = kind == null ? null : kind.trim();
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(String userNum) {
+        this.userNum = userNum;
+    }
+
+    public String getUserKind() {
+        return userKind;
+    }
+
+    public void setUserKind(String userKind) {
+        this.userKind = userKind;
+    }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
+
+
+
 }

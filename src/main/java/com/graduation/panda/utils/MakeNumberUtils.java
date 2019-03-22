@@ -58,6 +58,9 @@ public class MakeNumberUtils {
 //            System.out.print((int) (1 + Math.random() * 9));
 //        }
 //        System.out.println(MakeNumberUtils.customerMake());
-        System.out.println(MakeNumberUtils.goodsMake());
+//        System.out.println(MakeNumberUtils.goodsMake());
+        for(int i=25;i>0;i--){
+            System.out.println(i);
+        }
     }
 }

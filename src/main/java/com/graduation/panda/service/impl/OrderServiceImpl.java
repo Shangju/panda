@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,7 +24,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public void insertOrder(List<GoodsCart> goodsCart,String orderId,String userId){
-        int totalPrice = 0;
+        double totalPrice = 0;
         for (GoodsCart cart : goodsCart){
             if (cart.isChecked()){
                 totalPrice = totalPrice + cart.getQuantity() * cart.getProductPrice();
@@ -31,12 +32,15 @@ public class OrderServiceImpl implements OrderService{
         }
         OrderInfo orderInfo = new OrderInfo();
 
+        Date now = new Date();
+
         orderInfo.setOrderId(orderId);
         orderInfo.setUserId(userId);
         orderInfo.setTotalPrice(totalPrice);
         orderInfo.setPay(false);
         orderInfo.setReceipt(false);
         orderInfo.setStatus(true);
+        orderInfo.setCreateTime(now);
         orderInfo.setOrderType("海运");
         orderInfoMapper.insertOrder(orderInfo);
     }

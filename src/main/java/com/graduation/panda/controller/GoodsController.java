@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,19 +25,26 @@ public class GoodsController {
 
     /**
      * 显示商品列表
-     * @param goodsInfo
+     * @param
      * @return
      */
     @PostMapping("/goodsList")
     @ResponseBody
-    public HttpResult goodsList(@RequestBody GoodsInfo goodsInfo){
-        int categoryId = goodsInfo.getCategoryId();
-        String keyword = goodsInfo.getKeyword();
-        if(categoryId == 0){
-            List<GoodsInfo> goods = goodsInfoService.findByKeyword(keyword);
-            return HttpResult.ok(goods);
+    public HttpResult goodsList(@RequestBody HashMap map){
+        String keyword = map.get("keyword").toString();
+        if (keyword.equals("")){
+            return HttpResult.error("没有搜索关键字");
         }else {
-            return HttpResult.ok();
+            String orderBy = map.get("orderBy").toString();
+            List<GoodsInfo> goods = new ArrayList<>();
+            if (orderBy.equals("name asc")){
+                goods = goodsInfoService.findByKeyword(keyword);
+            }else if (orderBy.equals("price asc")){
+                goods = goodsInfoService.findByKeywordPriceAsc(keyword);
+            }else {
+                goods = goodsInfoService.findByKeywordPriceDesc(keyword);
+            }
+            return HttpResult.ok(goods);
         }
     }
 
@@ -59,4 +67,48 @@ public class GoodsController {
             return HttpResult.error("信息错误");
         }
     }
+
+    /**
+     * 获取页数接口
+     * @param
+     * @return
+     */
+    @PostMapping("/getAllPage")
+    @ResponseBody
+    public HttpResult getAllPage(@RequestBody HashMap map){
+        String keyword = map.get("keyword").toString();
+        if (keyword.equals("")){
+            return HttpResult.error("没有搜索关键字");
+        }else {
+            int all = goodsInfoService.findByKeywordCount(keyword);
+            all = all / 10 + 1;
+            return HttpResult.ok(all);
+        }
+    }
+
+    /**
+     * 获取分页接口
+     * @param map
+     * @return
+     */
+    @PostMapping("/getLimitPage")
+    @ResponseBody
+    public HttpResult getLimitPage(@RequestBody HashMap map){
+        String keyword = map.get("keyword").toString();
+        if (keyword.equals("")){
+            return HttpResult.error("没有搜索关键字");
+        }else {
+            String orderBy = map.get("orderBy").toString();
+            List<GoodsInfo> goods = new ArrayList<>();
+            if (orderBy.equals("name asc")){
+                goods = goodsInfoService.findByKeywordLimit(map);
+            }else if (orderBy.equals("price asc")){
+                goods = goodsInfoService.findByKeywordPriceAscLimit(map);
+            }else {
+                goods = goodsInfoService.findByKeywordPriceDescLimit(map);
+            }
+            return HttpResult.ok(goods);
+        }
+    }
+
 }

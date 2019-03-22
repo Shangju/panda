@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 public interface SysUserTokenService {
     /**
-     * 根据用户id查找
+     * 根据用户userId查找token
      * @param userId
      * @return
      */

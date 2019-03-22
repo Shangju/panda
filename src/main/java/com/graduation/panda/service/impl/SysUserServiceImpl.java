@@ -15,8 +15,8 @@ public class SysUserServiceImpl implements SysUserService{
     SysUserMapper sysUserMapper;
 
     @Override
-    public SysUser findByName(String name) {
-        return sysUserMapper.findByName(name);
+    public SysUser findByName(String adminName) {
+        return sysUserMapper.findByAdminName(adminName);
     }
 
 //    @Override

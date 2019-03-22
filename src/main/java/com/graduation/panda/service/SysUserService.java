@@ -7,7 +7,13 @@ import java.util.Set;
 
 
 public interface SysUserService {
-    SysUser findByName(String username);
+
+    /**
+     * 通过用户名查找信息，判断用户名是否存在
+     * @param adminName
+     * @return
+     */
+    SysUser findByName(String adminName);
 
     /**
      * 查找用户的菜单权限标识集合
@@ -21,10 +27,17 @@ public interface SysUserService {
     //注册插入
     int insert(SysUser record);
 
-    //根据userId查找用户信息
+    /**
+     * 根据userId查找用户信息
+     * @param userId
+     * @return
+     */
     SysUser findByUserId(String userId);
 
-    //更新密码
+    /**
+     * 更新用户信息
+     * @param record
+     */
     void updateByPrimaryKey(SysUser record);
 
 }

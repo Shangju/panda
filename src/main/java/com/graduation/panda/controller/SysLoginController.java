@@ -1,7 +1,6 @@
 package com.graduation.panda.controller;
 
 import com.google.code.kaptcha.Producer;
-import com.graduation.panda.model.LoginBean;
 import com.graduation.panda.model.SysUser;
 import com.graduation.panda.model.SysUserToken;
 import com.graduation.panda.service.SysUserService;
@@ -67,16 +66,14 @@ public class SysLoginController {
 
     @PostMapping(value = "/sys/register")
     public HttpResult register(@RequestBody SysUser sysUser,HttpServletRequest request){
-        String username = sysUser.getName();
-        String password = sysUser.getPassword();
-        String mobile = sysUser.getMobile();
+        String adminName = sysUser.getAdminName();
+        String userPassword = sysUser.getUserPassword();
         String captcha = sysUser.getCaptcha();
         String salt = PasswordUtils.getSalt();
 
+        //获取存在session的验证码
         HttpSession session = request.getSession();
         Object kaptcha = session.getAttribute("key");
-//        System.out.println(session.getId());
-//        System.out.println(session.getAttribute("key"));
 
         if(kaptcha == null){
             return HttpResult.error("验证码已失效");
@@ -85,22 +82,40 @@ public class SysLoginController {
             return HttpResult.error("验证码不正确");
         }
 
-        //密码加密
-        String xPassword = PasswordUtils.encrypte(password,salt);
-        sysUser.setPassword(xPassword);
-        sysUser.setSalt(salt);
-        String userId = MakeNumberUtils.customerMake();
-        sysUser.setUserId(userId);
-
-        SysUser user = sysUserService.findByName(username);
+        //判断用户名是否存在
+        SysUser sysUser1 = sysUserService.findByName(adminName);
 
         // 账号已经存在
-        if (user != null) {
+        if (sysUser1 != null) {
             return HttpResult.error("账号已经存在");
         }
+
+        //密码加密
+        String xPassword = PasswordUtils.encrypte(userPassword,salt);
+        //存入用户信息
+        sysUser.setUserPassword(xPassword);
+        sysUser.setUserSalt(salt);
+
+        //生成唯一用户userId
+        boolean flag = true;
+        while (flag){
+            String userId = MakeNumberUtils.customerMake();
+            SysUser user = sysUserService.findByUserId(userId);
+            //如果没有查到信息，就存入该userId
+            if (user == null){
+                sysUser.setUserId(userId);
+                flag = false;
+            }
+        }
         int user1 = sysUserService.insert(sysUser);
-        String msg = "注册成功";
-        return HttpResult.ok(msg);
+        if (user1 == 1){
+            logger.info("————————注册成功————————");
+            String msg = "注册成功";
+            return HttpResult.ok(msg);
+        }else {
+            return HttpResult.error();
+        }
+
     }
 
 
@@ -108,10 +123,10 @@ public class SysLoginController {
      * 登录接口
      */
     @PostMapping(value = "/sys/login")
-    public HttpResult login(@RequestBody LoginBean loginBean,HttpServletRequest request) throws IOException {
-        String username = loginBean.getUsername();
-        String password = loginBean.getPassword();
-        String captcha = loginBean.getCaptcha();
+    public HttpResult login(@RequestBody SysUser sysUser,HttpServletRequest request) throws IOException {
+        String adminName = sysUser.getAdminName();
+        String userPassword = sysUser.getUserPassword();
+        String captcha = sysUser.getCaptcha();
 
         // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
         // Object kaptcha = ShiroUtils.getSessionAttribute(Constants.KAPTCHA_SESSION_KEY);
@@ -128,14 +143,14 @@ public class SysLoginController {
         }
 
         // 用户信息
-        SysUser user = sysUserService.findByName(username);
+        SysUser user = sysUserService.findByName(adminName);
 
         // 账号不存在、密码错误
         if (user == null) {
             return HttpResult.error("账号不存在");
         }
 
-        if (!match(user, password)) {
+        if (!match(user, userPassword)) {
             return HttpResult.error("密码不正确");
         }
 
@@ -151,7 +166,7 @@ public class SysLoginController {
      * @return
      */
     public boolean match(SysUser user, String password) {
-        return user.getPassword().equals(PasswordUtils.encrypte(password, user.getSalt()));
+        return user.getUserPassword().equals(PasswordUtils.encrypte(password, user.getUserSalt()));
     }
 
     /**
@@ -169,4 +184,5 @@ public class SysLoginController {
         }
         return HttpResult.ok();
     }
+
 }

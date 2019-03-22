@@ -22,6 +22,7 @@ public class MyOrderServiceImpl implements MyOrderService{
 
     @Override
     public List<MyOrders> selectByUserId(String userId){
+        //查询所有订单的信息
         List<MyOrders> myOrders = myOrderMapper.selectByUserId(userId);
         for (MyOrders orders : myOrders){
             if (!orders.isPay()){

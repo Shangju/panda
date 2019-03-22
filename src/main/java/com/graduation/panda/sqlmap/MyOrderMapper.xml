@@ -6,7 +6,7 @@
         <result column="create_time" jdbcType="BOOLEAN" property="createTime" />
         <result column="pay" jdbcType="VARCHAR" property="pay" />
         <result column="total_price" jdbcType="BOOLEAN" property="totalPrice" />
-        <result column="customer_name" jdbcType="BOOLEAN" property="customerName" />
+        <result column="user_name" jdbcType="BOOLEAN" property="userName" />
         <result column="product_name" jdbcType="VARCHAR" property="productName" />
         <result column="quantity" jdbcType="INTEGER" property="quantity" />
         <result column="product_name" jdbcType="VARCHAR" property="productName" />
@@ -20,7 +20,7 @@
         <result column="create_time" jdbcType="VARCHAR" property="createTime" />
         <result column="pay" jdbcType="VARCHAR" property="pay" />
         <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
-        <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
     </resultMap>
 
     <select id="selectByUserId" parameterType="java.lang.String" resultMap="OrderResultMap">
@@ -29,9 +29,9 @@ SELECT
   a.create_time,
   a.pay,
   a.total_price,
-  b.customer_name
-FROM order_info a, user_info b
-WHERE a.user_id = #{userId} and b.customer_id = #{userId}
+  b.user_name
+FROM order_info a, sys_user b
+WHERE a.user_id = #{userId} and b.user_id = #{userId} order by create_time desc
     </select>
 
     <select id="selectSingleOrder" parameterType="java.util.Map" resultMap="OrderResultMap">
@@ -40,9 +40,9 @@ WHERE a.user_id = #{userId} and b.customer_id = #{userId}
         a.create_time,
         a.pay,
         a.total_price,
-        b.customer_name
-        FROM order_info a, user_info b
-        WHERE b.customer_id = #{userId} and a.order_id = #{orderId}
+        b.user_name
+        FROM order_info a, sys_user b
+        WHERE b.user_id = #{userId} and a.order_id = #{orderId}
     </select>
 
 </mapper>

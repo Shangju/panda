@@ -6,11 +6,27 @@ public class GoodsCart {
     private String userId;
     private int quantity;
     private String productName;
-    private int productPrice;
+    private double productPrice;
     private String mainImage;
     private boolean checked;
     private int productStock;
-    private int status;
+    private boolean status;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    public double getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
 
     public long getId() {
         return id;
@@ -18,12 +34,7 @@ public class GoodsCart {
     public void setId(long id) {
         this.id = id;
     }
-    public int getStatus() {
-        return status;
-    }
-    public void setStatus(int status) {
-        this.status = status;
-    }
+
     public String getUserId() {
         return userId;
     }
@@ -66,14 +77,6 @@ public class GoodsCart {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public int getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
     }
 
     public String getMainImage() {

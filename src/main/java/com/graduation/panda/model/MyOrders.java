@@ -1,15 +1,15 @@
 package com.graduation.panda.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class MyOrders {
     private String orderId;
-    private String createTime;
-    private String customerName;
+    private Date createTime;
+    private String userName;
     private double totalPrice;
     private boolean pay;
     private String status;
-
     private String productName;
     private String mainImage;
     private String productPrice;
@@ -32,20 +32,12 @@ public class MyOrders {
         this.orderId = orderId;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getStatus() {
@@ -104,6 +96,12 @@ public class MyOrders {
         this.pay = pay;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
 
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
 }

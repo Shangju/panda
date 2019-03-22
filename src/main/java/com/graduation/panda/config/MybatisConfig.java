@@ -21,7 +21,7 @@ public class MybatisConfig {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         // 扫描Model
-        sessionFactory.setTypeAliasesPackage("com.louis.kitty.**.model");
+        sessionFactory.setTypeAliasesPackage("com.graduation.panda.**.model");
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         // 扫描映射文件

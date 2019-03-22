@@ -8,17 +8,7 @@ public class GoodsInfo {
     private String sellPrice;
     private String goodsIntroduce;
     private String keyword;
-    private int categoryId;
     private String image;
-    private String orderBy;
-
-    public String getOrderBy() {
-        return orderBy;
-    }
-
-    public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
-    }
 
     public String getGoodsId() {
         return goodsId;
@@ -74,14 +64,6 @@ public class GoodsInfo {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getImage() {

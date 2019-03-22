@@ -5,13 +5,11 @@
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="token" jdbcType="VARCHAR" property="token" />
         <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
-        <result column="create_by" jdbcType="BIGINT" property="createBy" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-        <result column="last_update_by" jdbcType="BIGINT" property="lastUpdateBy" />
         <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
     </resultMap>
     <sql id="Base_Column_List">
-         user_id, token, expire_time, create_by, create_time, last_update_by, last_update_time
+         user_id, token, expire_time, create_time,last_update_time
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -25,11 +23,11 @@
     </delete>
     <insert id="insert" parameterType="com.graduation.panda.model.SysUserToken">
         insert into sys_user_token ( user_id, token,
-        expire_time, create_by, create_time,
-        last_update_by, last_update_time)
+        expire_time, create_time,
+        last_update_time)
         values ( #{userId,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR},
-        #{expireTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
-        #{lastUpdateBy,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+        #{expireTime,jdbcType=TIMESTAMP},  #{createTime,jdbcType=TIMESTAMP},
+         #{lastUpdateTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.graduation.panda.model.SysUserToken">
         insert into sys_user_token
