@@ -14,8 +14,17 @@ public class MyOrders {
     private String mainImage;
     private String productPrice;
     private int quantity;
+    private String orderType;
+
     private List<OrderGoods> orderGoods;
 
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
     public List<OrderGoods> getOrderGoods() {
         return orderGoods;
     }

@@ -76,6 +76,30 @@ public class OrderController {
     }
 
     /**
+     * 提交订单运输方式接口
+     * @param map
+     * @return
+     */
+    @PostMapping("/addOrderType")
+    @ResponseBody
+    public HttpResult addOrderType(HttpServletRequest request, @RequestBody HashMap map){
+        int price = Integer.parseInt(map.get("shipType").toString());
+        String orderType = "";
+        if (price == 50){
+            orderType = "海运";
+        }else {
+            orderType = "空运";
+        }
+        HttpSession session = request.getSession();
+        String orderId = (String)session.getAttribute("orderId");
+        OrderInfo orderInfo = orderService.findByOrderId(orderId);
+        orderInfo.setOrderType(orderType);
+        orderInfo.setTotalPrice(orderInfo.getTotalPrice() + price);
+        orderService.updateByOrderId(orderInfo);
+        return HttpResult.ok();
+    }
+
+    /**
      *获取刚提交的订单商品
      * @param request
      * @return
@@ -86,7 +110,16 @@ public class OrderController {
         //查询用户刚提交的订单
         HttpSession session = request.getSession();
         String orderId = (String)session.getAttribute("orderId");
-        List<OrderGoods> orderGoods = orderService.findGoodsByOrderId(orderId);
+        String userId = (String)session.getAttribute("userId");
+        HashMap map = new HashMap();
+        map.put("orderId",orderId);
+        map.put("userId",userId);
+        try {
+            Thread.sleep(1000);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        MyOrders myOrders = myOrderService.selectSingleOrder(map);
 
         //查询该用户的所有商品列表
         //获取Cookie里面的token，如果为空，则返回错误代码
@@ -103,7 +136,7 @@ public class OrderController {
 //                orderGoods.addAll(goods);
 //            }
 //        }
-        return HttpResult.ok(orderGoods);
+        return HttpResult.ok(myOrders);
     }
 
     /**

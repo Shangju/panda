@@ -2,8 +2,10 @@ package com.graduation.panda.controller;
 
 import com.graduation.panda.model.SysUser;
 import com.graduation.panda.model.SysUserToken;
+import com.graduation.panda.model.UserAddress;
 import com.graduation.panda.service.SysUserService;
 import com.graduation.panda.service.SysUserTokenService;
+import com.graduation.panda.service.UserAddressService;
 import com.graduation.panda.utils.CookieUtils;
 import com.graduation.panda.utils.PasswordUtils;
 import com.graduation.panda.utils.http.HttpResult;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class SysUserController {
@@ -28,6 +31,9 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private UserAddressService userAddressService;
+
     /**
      * 赋给主页登录信息
      * @param request
@@ -35,7 +41,7 @@ public class SysUserController {
      */
     @PostMapping("/userInfo")
     @ResponseBody
-    public HttpResult getUserInfo(HttpServletRequest request, HttpServletResponse response){
+    public HttpResult userInfo(HttpServletRequest request, HttpServletResponse response){
         Cookie[] cookies = request.getCookies();
         if (cookies.length < 1){
             return HttpResult.error("没有Cookie");
@@ -64,6 +70,11 @@ public class SysUserController {
     public HttpResult getUserInfo(@CookieValue(value = "token")String token){
         SysUserToken userToken = tokenService.findByToken(token);
         SysUser user = sysUserService.findByUserId(userToken.getUserId());
+        UserAddress userAddress = userAddressService.findDefaultAddress(userToken.getUserId());
+        if(userAddress != null){
+            String address = userAddress.getCityName()+" "+userAddress.getAreaName()+" "+userAddress.getUserAddress();
+            user.setUserAddress(address);
+        }
         return HttpResult.ok(user);
     }
 

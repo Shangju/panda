@@ -80,4 +80,9 @@ public class OrderServiceImpl implements OrderService{
         return goodsMapper.findByOrderId(orderId);
     }
 
+    @Override
+    public void updateByOrderId(OrderInfo orderInfo){
+        orderInfoMapper.updateByOrderId(orderInfo);
+    }
+
 }

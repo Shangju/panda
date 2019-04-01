@@ -6,6 +6,7 @@ import com.graduation.panda.service.UserAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,5 +17,24 @@ public class UserAddressServiceImpl implements UserAddressService{
     @Override
     public List<UserAddress> findByUserId(String userId){
         return userAddressMapper.findByUserId(userId);
+    }
+
+    @Override
+    public UserAddress findDefaultAddress(String userId){
+        return userAddressMapper.findDefaultAddress(userId);
+    }
+
+    @Override
+    public void insertAddress(UserAddress address){
+        Date now = new Date();
+        address.setCreateTime(now);
+        address.setDefaultStatus(true);
+        address.setDataFlag(true);
+        userAddressMapper.insertAddress(address);
+    }
+
+    @Override
+    public void updateAddress(UserAddress address){
+        userAddressMapper.updateAddress(address);
     }
 }

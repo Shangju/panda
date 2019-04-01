@@ -1,6 +1,7 @@
 package com.graduation.panda.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class SysUser {
 
@@ -17,6 +18,16 @@ public class SysUser {
     private String userNum;
     private String userKind;
     private String captcha;
+    private List<UserAddress> userAddresses;
+
+    public List<UserAddress> getUserAddresses() {
+        return userAddresses;
+    }
+
+    public void setUserAddresses(List<UserAddress> userAddresses) {
+        this.userAddresses = userAddresses;
+    }
+
 
     public int getId() {
         return id;

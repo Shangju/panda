@@ -23,17 +23,17 @@
         status)
         values (#{id,jdbcType=BIGINT},#{userId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{quantity,jdbcType=VARCHAR},
         #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=VARCHAR},#{mainImage,jdbcType=VARCHAR}, #{checked,jdbcType=VARCHAR},
-        #{productStock,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
+        #{productStock,jdbcType=VARCHAR},TRUE )
     </insert>
     <update id="updateByKey" parameterType="com.graduation.panda.model.GoodsCart">
         update goods_cart set quantity = #{quantity}
-        where user_id = #{userId} and product_id = #{productId}
+        where user_id = #{userId} and product_id = #{productId} and status = true
     </update>
 
     <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select *
     from goods_cart
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR} and status = true
     </select>
 
     <!--批量插入购物车信息-->
@@ -44,13 +44,13 @@
         <foreach collection="list" item="cart" separator=",">
             (#{cart.id},#{cart.userId},#{cart.productId},#{cart.quantity},
             #{cart.productName},#{cart.productPrice},#{cart.mainImage},#{cart.checked},
-            #{cart.productStock},#{cart.status})
+            #{cart.productStock},true)
         </foreach>
     </insert>
 
-    <delete id="deleteByKey" parameterType="java.lang.String">
-        delete from goods_cart
+    <update id="deleteByKey" parameterType="java.lang.String">
+        update goods_cart set status = false
         where product_id = #{productId} and user_id = #{userId}
-    </delete>
+    </update>
 
 </mapper>

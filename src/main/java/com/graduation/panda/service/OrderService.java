@@ -12,4 +12,11 @@ public interface OrderService {
     OrderInfo findByOrderId(String orderId);
     List<OrderInfo> findByUserId(String userId);
     List<OrderGoods> findGoodsByOrderId(String orderId);
+
+    /**
+     * 插入订单的运输方式
+     * @param orderInfo
+     */
+    void updateByOrderId(OrderInfo orderInfo);
+
 }

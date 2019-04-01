@@ -42,7 +42,7 @@ public class CartController {
     @PostMapping("/cart/addCart")
     @ResponseBody
     public HttpResult addCart(HttpServletRequest request, HttpServletResponse response, @RequestBody GoodsCart cartInfo){
-        //判断用户是否登录
+        //判断用户是否登录，登录了就将信息存入数据库，没有登录就在Cookie中操作购物车
         SysUserToken userToken = (SysUserToken)request.getAttribute("user");
         if(userToken != null){
             SysUserToken user = sysUserTokenService.findByToken(userToken.getToken());

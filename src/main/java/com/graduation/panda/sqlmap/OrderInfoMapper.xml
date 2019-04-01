@@ -32,4 +32,8 @@
         where user_id = #{userId} and status = true and pay = false
     </select>
 
+    <update id="updateByOrderId" parameterType="com.graduation.panda.model.OrderInfo">
+        update order_info set order_type = #{orderType},total_price = #{totalPrice}
+        where order_id = #{orderId}
+    </update>
 </mapper>

@@ -19,4 +19,47 @@
         where user_id = #{userId,jdbcType=VARCHAR} and data_flag = TRUE
     </select>
 
+    <select id="findDefaultAddress" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from user_Address
+        where user_id = #{userId,jdbcType=VARCHAR} and data_flag = TRUE and default_status = true
+    </select>
+
+    <select id="findByAddress" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from user_Address
+        where user_id = #{userId,jdbcType=VARCHAR} and data_flag = TRUE and user_address = #{userAddress}
+    </select>
+
+    <insert id="insertAddress" parameterType="com.graduation.panda.model.UserAddress">
+        insert into user_address (user_id,user_name,user_phone,city_name,area_name,user_address,
+        default_status,data_flag,create_time)
+        values
+        (#{userId},#{userName},#{userPhone},#{cityName},#{areaName},#{userAddress},
+        #{defaultStatus},#{dataFlag},#{createTime})
+    </insert>
+
+    <update id="updateAddress" parameterType="com.graduation.panda.model.UserAddress">
+        update user_address
+        <set>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="userPhone != null">
+                user_phone = #{userPhone},
+            </if>
+            <if test="cityName != null">
+                city_name = #{cityName},
+            </if>
+            <if test="areaName != null">
+                area_name = #{areaName},
+            </if>
+            <if test="userAddress != null">
+                user_address = #{userAddress},
+            </if>
+            <if test="areaName != null">
+                area_name = #{areaName},
+            </if>
+        </set>
+        where user_id = #{userId} and data_flag = true and default_status = true
+    </update>
+
 </mapper>
