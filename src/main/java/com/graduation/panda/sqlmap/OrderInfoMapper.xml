@@ -36,4 +36,26 @@
         update order_info set order_type = #{orderType},total_price = #{totalPrice}
         where order_id = #{orderId}
     </update>
+
+    <select id="findOrderLimit" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select *
+        from order_info
+        <where>
+            <if test="orderId!=null and orderId!=''">
+                and order_id = #{orderId}
+            </if>
+        </where>
+        limit #{pageNum},10
+
+    </select>
+
+    <select id="selectCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1)
+        from order_info
+        <where>
+            <if test="orderId!=null and orderId!=''">
+                and order_id = #{orderId}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -47,5 +48,15 @@ public class SysUserServiceImpl implements SysUserService{
     @Override
     public void updateByPrimaryKey(SysUser record){
          sysUserMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<SysUser> findUserLimit(int pageNum) {
+        return sysUserMapper.findUserLimit(pageNum);
+    }
+
+    @Override
+    public int selectCount() {
+        return sysUserMapper.selectCount();
     }
 }

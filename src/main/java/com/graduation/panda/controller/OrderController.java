@@ -227,4 +227,29 @@ public class OrderController {
     }
 
 
+    /**
+     * 获取所有订单
+     * @param map
+     * @param request
+     * @return
+     */
+    @PostMapping("/findOrderLimit")
+    @ResponseBody
+    public HttpResult findOrderLimit(@RequestBody HashMap map,HttpServletRequest request){
+        int pageNum = Integer.parseInt(map.get("pageNum").toString());
+        int pageSize = Integer.parseInt(map.get("pageSize").toString());
+        String orderId = map.get("orderNum").toString();
+//        System.out.println(orderNum);
+        Map<String,Object> params = new HashMap<String,Object>();
+        if(orderId.equals("")){
+            orderId = "";
+        }
+        pageNum = (pageNum - 1) * 10 ;
+        params.put("pageNum",pageNum);
+        params.put("orderId",orderId);
+        List<OrderInfo> orderInfos = orderService.findOrderLimit(params);
+        int totalSize = orderService.selectCount(orderId);
+        return HttpResult.ok(totalSize,orderInfos);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.graduation.panda.service;
 import com.graduation.panda.model.SysUser;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -39,5 +40,17 @@ public interface SysUserService {
      * @param record
      */
     void updateByPrimaryKey(SysUser record);
+
+    /**
+     * 管理员查询用户列表
+     * @return
+     */
+    List<SysUser> findUserLimit(int pageNum);
+
+    /**
+     * 查询用户总数量
+     * @return
+     */
+    int selectCount();
 
 }

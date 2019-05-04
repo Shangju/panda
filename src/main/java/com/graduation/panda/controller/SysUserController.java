@@ -9,6 +9,7 @@ import com.graduation.panda.service.UserAddressService;
 import com.graduation.panda.utils.CookieUtils;
 import com.graduation.panda.utils.PasswordUtils;
 import com.graduation.panda.utils.http.HttpResult;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -43,7 +44,10 @@ public class SysUserController {
     @ResponseBody
     public HttpResult userInfo(HttpServletRequest request, HttpServletResponse response){
         Cookie[] cookies = request.getCookies();
-        if (cookies.length < 1){
+//        if (cookies.length < 1){
+//            return HttpResult.error("没有Cookie");
+//        }
+        if(cookies == null){
             return HttpResult.error("没有Cookie");
         }
         for(Cookie c :cookies){
@@ -120,5 +124,22 @@ public class SysUserController {
         user.setUserPassword(PasswordUtils.encrypte(passwordNew,salt));
         sysUserService.updateByPrimaryKey(user);
         return HttpResult.ok("密码修改成功，请重新登录。");
+    }
+
+    /**
+     * 管理用户---分页查询接口
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/findUserLimit")
+    @ResponseBody
+    public HttpResult findUserLimit(@RequestBody HashMap map){
+        int pageNum = Integer.parseInt(map.get("pageNum").toString());
+        int pageSize = Integer.parseInt(map.get("pageSize").toString());
+        pageNum = (pageNum - 1) * 10 ;
+        List<SysUser> sysUsers = sysUserService.findUserLimit(pageNum);
+        int totalSize = sysUserService.selectCount();
+        return HttpResult.ok(totalSize,sysUsers);
     }
 }

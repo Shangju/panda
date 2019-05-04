@@ -5,15 +5,20 @@ import com.graduation.panda.model.AlipayBean;
 import com.graduation.panda.service.PayService;
 import com.graduation.panda.service.TestService;
 import com.graduation.panda.service.impl.TestServiceImp;
+import com.sun.org.apache.xml.internal.security.keys.KeyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 测试controller
@@ -85,5 +90,30 @@ public class TestController {
     public String cookie(@CookieValue(value = "token")String token){
         System.out.println(token);
         return token;
+    }
+
+    @RequestMapping("/uploadImage")
+    @ResponseBody
+    public String uploadImage(@RequestParam("file") MultipartFile uploadFile){
+        /*存储服务器目录*/
+        String savedDir = "E:\\Test\\panda-admin\\static\\img";
+        String fileName = "\\test.jpg";
+
+        //存入服务器指定路径
+        File savedFile = new File(savedDir+fileName);
+        try {
+            if (!savedFile.getParentFile().exists()) {
+                savedFile.mkdirs();
+            }
+            uploadFile.transferTo(savedFile);  //转存文件
+            System.out.println(savedFile);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
     }
 }

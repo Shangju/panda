@@ -55,6 +55,7 @@ public class SysLoginController {
 //        ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
         HttpSession session = request.getSession();
         session.setAttribute("key",text);
+        System.out.println(session.getId());
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
@@ -132,7 +133,7 @@ public class SysLoginController {
         // Object kaptcha = ShiroUtils.getSessionAttribute(Constants.KAPTCHA_SESSION_KEY);
         HttpSession session = request.getSession();
         Object kaptcha = session.getAttribute("key");
-//        System.out.println(session.getId());
+        System.out.println(session.getId());
 //        System.out.println(session.getAttribute("key"));
 
         if(kaptcha == null){

@@ -53,4 +53,14 @@
         where keyword LIKE CONCAT(CONCAT('%',#{keyword}),'%') order by sell_price desc LIMIT #{staNum},10
     </select>
 
+
+    <select id="findGoodsLimit" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from goods_info limit #{pageNum},10
+    </select>
+
+    <select id="selectCount"  resultType="java.lang.Integer">
+        select count(1)
+        from goods_info
+    </select>
 </mapper>

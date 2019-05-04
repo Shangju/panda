@@ -36,4 +36,16 @@ public interface SysUserMapper {
      * @return
      */
     SysUser findByUserId(String userId);
+
+    /**
+     * 管理员查询用户列表
+     * @return
+     */
+    List<SysUser> findUserLimit(int pageNum);
+
+    /**
+     * 查询用户总数量
+     * @return
+     */
+    int selectCount();
 }

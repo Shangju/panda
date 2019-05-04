@@ -111,4 +111,22 @@ public class GoodsController {
         }
     }
 
+
+
+    /**
+     * 获取商品资料
+     * @param map
+     * @return
+     */
+    @PostMapping("/findGoodsLimit")
+    @ResponseBody
+    public HttpResult findGoodsLimit(@RequestBody HashMap map){
+        int pageNum = Integer.parseInt(map.get("pageNum").toString());
+        int pageSize = Integer.parseInt(map.get("pageSize").toString());
+        pageNum = (pageNum - 1) * pageSize ;
+        List<GoodsInfo> goodsInfos = goodsInfoService.findGoodsLimit(pageNum);
+        int totalSize = goodsInfoService.selectCount();
+        return HttpResult.ok(totalSize,goodsInfos);
+
+    }
 }

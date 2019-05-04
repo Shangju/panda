@@ -26,7 +26,17 @@ public interface GoodsInfoService {
 
     List<GoodsInfo> findByKeywordPriceDescLimit(Map map);
 
+    /**
+     * 管理员查询商品列表
+     * @return
+     */
+    List<GoodsInfo> findGoodsLimit(int pageNum);
 
+    /**
+     * 查询商品总数量
+     * @return
+     */
+    int selectCount();
 
 
 }

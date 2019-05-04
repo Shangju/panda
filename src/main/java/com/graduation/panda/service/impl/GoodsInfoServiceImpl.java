@@ -50,4 +50,14 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
         return goodsInfoMapper.findByKeywordPriceDescLimit(map);
     }
 
+    @Override
+    public List<GoodsInfo> findGoodsLimit(int pageNum) {
+        return goodsInfoMapper.findGoodsLimit(pageNum);
+    }
+
+    @Override
+    public int selectCount() {
+        return goodsInfoMapper.selectCount();
+    }
+
 }

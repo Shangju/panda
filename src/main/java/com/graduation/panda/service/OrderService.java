@@ -5,6 +5,7 @@ import com.graduation.panda.model.OrderGoods;
 import com.graduation.panda.model.OrderInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
     void insertOrder(List<GoodsCart> goodsCart,String orderId,String userId);
@@ -18,5 +19,17 @@ public interface OrderService {
      * @param orderInfo
      */
     void updateByOrderId(OrderInfo orderInfo);
+
+    /**
+     * 管理员查询用户列表
+     * @return
+     */
+    List<OrderInfo> findOrderLimit(Map map);
+
+    /**
+     * 查询用户总数量
+     * @return
+     */
+    int selectCount(String orderId);
 
 }

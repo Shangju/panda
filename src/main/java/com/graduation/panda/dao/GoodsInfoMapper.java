@@ -1,6 +1,7 @@
 package com.graduation.panda.dao;
 
 import com.graduation.panda.model.GoodsInfo;
+import com.graduation.panda.model.OrderInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,5 +31,16 @@ public interface GoodsInfoMapper {
 
 
 
+    /**
+     * 管理员查询商品列表
+     * @return
+     */
+    List<GoodsInfo> findGoodsLimit(int pageNum);
+
+    /**
+     * 查询商品总数量
+     * @return
+     */
+    int selectCount();
 
 }

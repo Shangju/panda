@@ -40,6 +40,11 @@ public class TestUtils extends JFrame {
     }
 
     public static void main(String[] args) {
-        new TestUtils();
+//        new TestUtils();
+
+
+        for(int i=0; i<3; i++) {
+
+        }
     }
 }
