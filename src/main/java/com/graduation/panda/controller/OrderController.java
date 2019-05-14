@@ -8,6 +8,8 @@ import com.graduation.panda.utils.MakeNumberUtils;
 import com.graduation.panda.utils.StringUtils;
 import com.graduation.panda.utils.http.HttpResult;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import io.swagger.models.auth.In;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -209,7 +211,7 @@ public class OrderController {
     @PostMapping("/getSingleOrders")
     @ResponseBody
     public HttpResult getSingleOrders(@RequestBody HashMap map,HttpServletRequest request){
-        Map<String,String> hashMap = new HashMap<>();
+        Map<String,Object> hashMap = new HashMap<>();
         String orderId = map.get("orderId").toString();
         if (orderId == null){
             return HttpResult.error();
@@ -252,4 +254,64 @@ public class OrderController {
         return HttpResult.ok(totalSize,orderInfos);
     }
 
+    /**
+     * 管理用户---删除订单接口
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/deleteOrder")
+    @ResponseBody
+    public HttpResult deleteGoods(@RequestBody HashMap map){
+        String orderId = map.get("orderId").toString();
+        orderService.deleteByOrderId(orderId);
+        return HttpResult.ok();
+    }
+
+    /**
+     * 管理用户---编辑订单接口
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateOrder")
+    @ResponseBody
+    public HttpResult deleteGoods(@RequestBody OrderInfo orderInfo){
+        orderService.updateByPrimaryKey(orderInfo);
+        return HttpResult.ok();
+    }
+
+    /**
+     * 管理用户---编辑订单接口
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/payMoney")
+    @ResponseBody
+    public HttpResult payMoney(@RequestBody OrderInfo orderInfo){
+        orderService.updateByPrimaryKey(orderInfo);
+        return HttpResult.ok();
+    }
+
+    /**
+     * 更新订单状态
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updatePay")
+    @ResponseBody
+    public HttpResult updatePay(@RequestBody HashMap map){
+        String orderId = map.get("orderId").toString();
+        int addressId = Integer.parseInt(map.get("addressId").toString());
+        OrderInfo orderInfo = orderService.findByOrderId(orderId);
+        UserAddress address = userAddressService.findByAddressId(addressId);
+        String userAddress = address.getCityName()+address.getAreaName()+
+                address.getUserAddress();
+        orderInfo.setPay(true);
+        orderInfo.setUserAddress(userAddress);
+        orderService.updateByPrimaryKey(orderInfo);
+        return HttpResult.ok();
+    }
 }

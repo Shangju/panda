@@ -12,6 +12,25 @@ public class OrderInfo {
     private String shipTime;
     private Date createTime;
     private boolean status;
+    private String userAddress;
+    private boolean recieve;
+
+    public boolean isRecieve() {
+        return recieve;
+    }
+
+    public void setRecieve(boolean recieve) {
+        this.recieve = recieve;
+    }
+
+
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
     public Date getCreateTime() {
         return createTime;
     }

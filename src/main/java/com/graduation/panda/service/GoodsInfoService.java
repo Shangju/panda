@@ -30,13 +30,25 @@ public interface GoodsInfoService {
      * 管理员查询商品列表
      * @return
      */
-    List<GoodsInfo> findGoodsLimit(int pageNum);
+    List<GoodsInfo> findGoodsLimit(Map map);
 
     /**
      * 查询商品总数量
      * @return
      */
-    int selectCount();
+    int selectCount(String goodsId);
 
+    /**
+     * 删除商品接口
+     * @param goodsId
+     */
+    void deleteByGoodsId(String goodsId);
 
+    /**
+     * 编辑商品
+     */
+    void updateByPrimaryKey(GoodsInfo goodsInfo);
+
+    //商品详情
+    GoodsInfo findByGoodsId(String goodsId);
 }

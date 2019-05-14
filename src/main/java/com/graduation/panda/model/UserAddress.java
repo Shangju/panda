@@ -3,7 +3,7 @@ package com.graduation.panda.model;
 import java.util.Date;
 
 public class UserAddress {
-    private long addressId;
+    private int addressId;
     private String userId;
     private String userName;
     private String userPhone;
@@ -18,7 +18,7 @@ public class UserAddress {
         return addressId;
     }
 
-    public void setAddressId(long addressId) {
+    public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
 

@@ -96,4 +96,14 @@ public class OrderServiceImpl implements OrderService{
         return orderInfoMapper.selectCount(orderId);
     }
 
+    @Override
+    public void deleteByOrderId(String orderId) {
+        orderInfoMapper.deleteByOrderId(orderId);
+    }
+
+    @Override
+    public void updateByPrimaryKey(OrderInfo orderInfo) {
+        orderInfoMapper.updateByPrimaryKey(orderInfo);
+    }
+
 }

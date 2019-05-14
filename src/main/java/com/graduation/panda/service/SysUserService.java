@@ -4,6 +4,7 @@ import com.graduation.panda.model.SysUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -45,12 +46,25 @@ public interface SysUserService {
      * 管理员查询用户列表
      * @return
      */
-    List<SysUser> findUserLimit(int pageNum);
+    List<SysUser> findUserLimit(Map map);
 
     /**
      * 查询用户总数量
      * @return
      */
-    int selectCount();
+    int selectCount(String adminName);
 
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    void deleteByPrimaryKey(String userId);
+
+    /**
+     * 管理员登录查询
+     * @param map
+     * @return
+     */
+    SysUser findByUserKind(Map map);
 }

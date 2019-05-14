@@ -20,6 +20,13 @@ public interface UserAddressService {
     UserAddress findDefaultAddress(String userId);
 
     /**
+     * 通过addressId查找用户的收货地址
+     * @param addressId
+     * @return
+     */
+    UserAddress findByAddressId(int addressId);
+
+    /**
      * 插入用户的收货地址
      * @param userAddress
      */

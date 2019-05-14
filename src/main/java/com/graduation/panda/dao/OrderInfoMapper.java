@@ -33,4 +33,17 @@ public interface OrderInfoMapper {
      * @return
      */
     int selectCount(@Param(value="orderId") String orderId);
+
+
+    /**
+     * 删除订单接口
+     * @param orderId
+     */
+    void deleteByOrderId(String orderId);
+
+    /**
+     * 编辑订单
+     * @param orderInfo
+     */
+    void updateByPrimaryKey(OrderInfo orderInfo);
 }

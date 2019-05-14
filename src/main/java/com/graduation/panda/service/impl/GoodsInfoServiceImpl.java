@@ -51,13 +51,28 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
     }
 
     @Override
-    public List<GoodsInfo> findGoodsLimit(int pageNum) {
-        return goodsInfoMapper.findGoodsLimit(pageNum);
+    public List<GoodsInfo> findGoodsLimit(Map map) {
+        return goodsInfoMapper.findGoodsLimit(map);
     }
 
     @Override
-    public int selectCount() {
-        return goodsInfoMapper.selectCount();
+    public int selectCount(String goodsId) {
+        return goodsInfoMapper.selectCount(goodsId);
+    }
+
+    @Override
+    public void deleteByGoodsId(String goodsId) {
+        goodsInfoMapper.deleteByGoodsId(goodsId);
+    }
+
+    @Override
+    public void updateByPrimaryKey(GoodsInfo goodsInfo) {
+        goodsInfoMapper.updateByPrimaryKey(goodsInfo);
+    }
+
+    @Override
+    public GoodsInfo findByGoodsId(String goodsId) {
+        return goodsInfoMapper.findByGoodsId(goodsId);
     }
 
 }

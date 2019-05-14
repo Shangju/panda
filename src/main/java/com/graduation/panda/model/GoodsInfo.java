@@ -9,6 +9,33 @@ public class GoodsInfo {
     private String goodsIntroduce;
     private String keyword;
     private String image;
+    private String subImages;
+    private String detail;
+    private int stock;
+
+    public String getSubImages() {
+        return subImages;
+    }
+
+    public void setSubImages(String subImages) {
+        this.subImages = subImages;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
     public String getGoodsId() {
         return goodsId;

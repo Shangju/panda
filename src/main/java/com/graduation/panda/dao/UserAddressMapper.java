@@ -22,6 +22,13 @@ public interface UserAddressMapper {
     UserAddress findDefaultAddress(String userId);
 
     /**
+     * 通过userId查找用户的默认收货地址
+     * @param addressId
+     * @return
+     */
+    UserAddress findByAddressId(int addressId);
+
+    /**
      * 插入用户的收货地址
      * @param userAddress
      */

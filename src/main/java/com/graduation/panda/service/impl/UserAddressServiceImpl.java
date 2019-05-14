@@ -25,6 +25,11 @@ public class UserAddressServiceImpl implements UserAddressService{
     }
 
     @Override
+    public UserAddress findByAddressId(int addressId) {
+        return userAddressMapper.findByAddressId(addressId);
+    }
+
+    @Override
     public void insertAddress(UserAddress address){
         Date now = new Date();
         address.setCreateTime(now);

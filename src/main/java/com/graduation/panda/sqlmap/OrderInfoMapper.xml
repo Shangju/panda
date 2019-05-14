@@ -11,6 +11,8 @@
         <result column="ship_time" jdbcType="VARCHAR" property="shipTime" />
         <result column="create_time" jdbcType="DATE" property="createTime" />
         <result column="status" jdbcType="BOOLEAN" property="status" />
+        <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+        <result column="recieve" jdbcType="BOOLEAN" property="recieve" />
     </resultMap>
 
     <insert id="insertOrder" parameterType="com.graduation.panda.model.OrderInfo">
@@ -58,4 +60,45 @@
             </if>
         </where>
     </select>
+
+    <delete id="deleteByOrderId" parameterType="java.lang.String">
+        delete from order_info
+        where order_id = #{orderId,jdbcType=BIGINT}
+    </delete>
+
+    <!--更新用户信息，修改资料与修改密码使用-->
+    <update id="updateByPrimaryKey" parameterType="com.graduation.panda.model.SysUser">
+        update order_info
+        <set>
+            <if test="orderType != null">
+                order_type = #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="pay != null">
+                pay = #{pay,jdbcType=VARCHAR},
+            </if>
+            <if test="receipt != null">
+                receipt = #{receipt,jdbcType=VARCHAR},
+            </if>
+            <if test="shipTime != null">
+                ship_time = #{shipTime,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=VARCHAR},
+            </if>
+            <if test="recieve != null">
+                recieve = #{recieve,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where order_id = #{orderId}
+    </update>
+
 </mapper>

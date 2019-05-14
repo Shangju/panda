@@ -2,6 +2,7 @@ package com.graduation.panda.controller;
 
 import com.graduation.panda.model.GoodsDetail;
 import com.graduation.panda.model.GoodsInfo;
+import com.graduation.panda.model.OrderInfo;
 import com.graduation.panda.service.GoodsDetailService;
 import com.graduation.panda.service.GoodsInfoService;
 import com.graduation.panda.utils.http.HttpResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class GoodsController {
@@ -31,6 +33,9 @@ public class GoodsController {
     @PostMapping("/goodsList")
     @ResponseBody
     public HttpResult goodsList(@RequestBody HashMap map){
+        if(map.get("keyword").toString() == null){
+            return HttpResult.ok();
+        }
         String keyword = map.get("keyword").toString();
         if (keyword.equals("")){
             return HttpResult.error("没有搜索关键字");
@@ -58,7 +63,7 @@ public class GoodsController {
     public HttpResult loadDetail(@RequestBody HashMap map){
         String goodsId = map.get("goodsId").toString();
         if(goodsId != null){
-            GoodsDetail detail = goodsDetailService.findByGoodsId(goodsId);
+            GoodsInfo detail = goodsInfoService.findByGoodsId(goodsId);
             if(detail == null){
                 return HttpResult.error("没有这个商品");
             }
@@ -76,6 +81,9 @@ public class GoodsController {
     @PostMapping("/getAllPage")
     @ResponseBody
     public HttpResult getAllPage(@RequestBody HashMap map){
+        if(map.get("keyword").toString() == null){
+            return HttpResult.ok();
+        }
         String keyword = map.get("keyword").toString();
         if (keyword.equals("")){
             return HttpResult.error("没有搜索关键字");
@@ -123,10 +131,45 @@ public class GoodsController {
     public HttpResult findGoodsLimit(@RequestBody HashMap map){
         int pageNum = Integer.parseInt(map.get("pageNum").toString());
         int pageSize = Integer.parseInt(map.get("pageSize").toString());
-        pageNum = (pageNum - 1) * pageSize ;
-        List<GoodsInfo> goodsInfos = goodsInfoService.findGoodsLimit(pageNum);
-        int totalSize = goodsInfoService.selectCount();
+        String goodsId = map.get("goodsId").toString();
+
+        Map<String,Object> params = new HashMap<String,Object>();
+        if(goodsId.equals("")){
+            goodsId = "";
+        }
+        pageNum = (pageNum - 1) * 10 ;
+        params.put("pageNum",pageNum);
+        params.put("goodsId",goodsId);
+        List<GoodsInfo> goodsInfos = goodsInfoService.findGoodsLimit(params);
+        int totalSize = goodsInfoService.selectCount(goodsId);
         return HttpResult.ok(totalSize,goodsInfos);
 
+    }
+
+    /**
+     * 管理用户---删除商品接口
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/deleteGoods")
+    @ResponseBody
+    public HttpResult deleteGoods(@RequestBody HashMap map){
+        String goodsId = map.get("goodsId").toString();
+        goodsInfoService.deleteByGoodsId(goodsId);
+        return HttpResult.ok();
+    }
+
+    /**
+     * 管理用户---编辑商品接口
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateGoods")
+    @ResponseBody
+    public HttpResult deleteGoods(@RequestBody GoodsInfo goodsInfo){
+        goodsInfoService.updateByPrimaryKey(goodsInfo);
+        return HttpResult.ok();
     }
 }

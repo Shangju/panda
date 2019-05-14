@@ -32,4 +32,16 @@ public interface OrderService {
      */
     int selectCount(String orderId);
 
+    /**
+     * 删除订单接口
+     * @param orderId
+     */
+    void deleteByOrderId(String orderId);
+
+    /**
+     * 编辑订单
+     * @param orderInfo
+     */
+    void updateByPrimaryKey(OrderInfo orderInfo);
+
 }

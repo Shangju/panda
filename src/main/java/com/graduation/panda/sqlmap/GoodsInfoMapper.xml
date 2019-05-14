@@ -10,6 +10,9 @@
         <result column="goods_introduce" jdbcType="VARCHAR" property="goodsIntroduce" />
         <result column="keyword" jdbcType="VARCHAR" property="keyword" />
         <result column="image" jdbcType="VARCHAR" property="image" />
+        <result column="sub_images" jdbcType="VARCHAR" property="subImages" />
+        <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
+        <result column="stock" jdbcType="INTEGER" property="stock" />
     </resultMap>
 
     <!--默认排序-->
@@ -54,13 +57,60 @@
     </select>
 
 
-    <select id="findGoodsLimit" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="findGoodsLimit" parameterType="java.util.Map" resultMap="BaseResultMap">
         select *
-        from goods_info limit #{pageNum},10
+        from goods_info
+        <where>
+        <if test="goodsId!=null and goodsId!=''">
+            and goods_id = #{goodsId}
+        </if>
+        </where>
+        limit #{pageNum},10
     </select>
 
-    <select id="selectCount"  resultType="java.lang.Integer">
+    <select id="selectCount" parameterType="java.lang.String" resultType="java.lang.Integer">
         select count(1)
         from goods_info
+        <where>
+            <if test="goodsId!=null and goodsId!=''">
+                and goods_id = #{goodsId}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByGoodsId" parameterType="java.lang.String">
+        delete from goods_info
+        where goods_id = #{goodsId,jdbcType=BIGINT}
+    </delete>
+
+    <!--更新用户信息，修改资料与修改密码使用-->
+    <update id="updateByPrimaryKey" parameterType="com.graduation.panda.model.SysUser">
+        update goods_info
+        <set>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="marketName != null">
+                market_name = #{marketName,jdbcType=VARCHAR},
+            </if>
+            <if test="sellPrice != null">
+                sell_price = #{sellPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsIntroduce != null">
+                goods_introduce = #{goodsIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="keyword != null">
+                keyword = #{keyword,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null">
+                image = #{image,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where goods_id = #{goodsId}
+    </update>
+
+    <select id="findByGoodsId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from goods_info
+        where goods_id = #{goodsId,jdbcType=VARCHAR}
     </select>
 </mapper>

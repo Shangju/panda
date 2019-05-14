@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -51,12 +52,22 @@ public class SysUserServiceImpl implements SysUserService{
     }
 
     @Override
-    public List<SysUser> findUserLimit(int pageNum) {
-        return sysUserMapper.findUserLimit(pageNum);
+    public List<SysUser> findUserLimit(Map map) {
+        return sysUserMapper.findUserLimit(map);
     }
 
     @Override
-    public int selectCount() {
-        return sysUserMapper.selectCount();
+    public int selectCount(String adminName) {
+        return sysUserMapper.selectCount(adminName);
+    }
+
+    @Override
+    public void deleteByPrimaryKey(String userId) {
+        sysUserMapper.deleteByPrimaryKey(userId);
+    }
+
+    @Override
+    public SysUser findByUserKind(Map map) {
+        return sysUserMapper.findByUserKind(map);
     }
 }

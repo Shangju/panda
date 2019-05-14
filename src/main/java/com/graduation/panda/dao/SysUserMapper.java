@@ -5,11 +5,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface SysUserMapper {
 
-    int deleteByPrimaryKey(Long id);
+    void deleteByPrimaryKey(String userId);
 
     int insert(SysUser record);
 
@@ -41,11 +42,18 @@ public interface SysUserMapper {
      * 管理员查询用户列表
      * @return
      */
-    List<SysUser> findUserLimit(int pageNum);
+    List<SysUser> findUserLimit(Map map);
 
     /**
      * 查询用户总数量
      * @return
      */
-    int selectCount();
+    int selectCount(@Param(value="adminName") String adminName);
+
+    /**
+     * 管理员登录查询
+     * @param map
+     * @return
+     */
+    SysUser findByUserKind(Map map);
 }

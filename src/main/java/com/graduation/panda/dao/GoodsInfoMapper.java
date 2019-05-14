@@ -1,7 +1,9 @@
 package com.graduation.panda.dao;
 
+import com.graduation.panda.model.GoodsDetail;
 import com.graduation.panda.model.GoodsInfo;
 import com.graduation.panda.model.OrderInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -35,12 +37,25 @@ public interface GoodsInfoMapper {
      * 管理员查询商品列表
      * @return
      */
-    List<GoodsInfo> findGoodsLimit(int pageNum);
+    List<GoodsInfo> findGoodsLimit(Map map);
 
     /**
      * 查询商品总数量
      * @return
      */
-    int selectCount();
+    int selectCount(@Param(value = "goodsId") String goodsId);
 
+    /**
+     * 删除商品接口
+     * @param goodsId
+     */
+    void deleteByGoodsId(String goodsId);
+
+    /**
+     * 编辑商品
+     */
+    void updateByPrimaryKey(GoodsInfo goodsInfo);
+
+    //商品详情
+    GoodsInfo findByGoodsId(String goodsId);
 }
