@@ -3,16 +3,18 @@
 <mapper namespace="com.graduation.panda.dao.MyOrderMapper">
     <resultMap id="BaseResultMap" type="com.graduation.panda.model.MyOrders">
         <result column="order_id" jdbcType="VARCHAR" property="orderId" />
-        <result column="create_time" jdbcType="BOOLEAN" property="createTime" />
-        <result column="pay" jdbcType="VARCHAR" property="pay" />
-        <result column="total_price" jdbcType="BOOLEAN" property="totalPrice" />
-        <result column="user_name" jdbcType="BOOLEAN" property="userName" />
+        <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+        <result column="pay" jdbcType="BOOLEAN" property="pay" />
+        <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
         <result column="product_name" jdbcType="VARCHAR" property="productName" />
         <result column="quantity" jdbcType="INTEGER" property="quantity" />
         <result column="product_name" jdbcType="VARCHAR" property="productName" />
         <result column="product_price" jdbcType="DOUBLE" property="productPrice" />
         <result column="quantity" jdbcType="INTEGER" property="quantity" />
         <result column="main_image" jdbcType="VARCHAR" property="mainImage" />
+        <result column="recieve" jdbcType="BOOLEAN" property="recieve" />
+        <result column="receipt" jdbcType="BOOLEAN" property="receipt" />
     </resultMap>
 
     <resultMap id="OrderResultMap" type="com.graduation.panda.model.MyOrders">
@@ -22,6 +24,10 @@
         <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
         <result column="user_name" jdbcType="VARCHAR" property="userName" />
         <result column="order_type" jdbcType="VARCHAR" property="orderType" />
+        <result column="recieve" jdbcType="BOOLEAN" property="recieve" />
+        <result column="receipt" jdbcType="BOOLEAN" property="receipt" />
+
+
     </resultMap>
 
     <select id="selectByUserId" parameterType="java.lang.String" resultMap="OrderResultMap">
@@ -30,6 +36,8 @@ SELECT
   a.create_time,
   a.pay,
   a.total_price,
+  a.recieve,
+  a.receipt,
   b.user_name
 FROM order_info a, sys_user b
 WHERE a.user_id = #{userId} and b.user_id = #{userId} order by create_time desc
@@ -42,6 +50,8 @@ WHERE a.user_id = #{userId} and b.user_id = #{userId} order by create_time desc
         a.pay,
         a.total_price,
         a.order_type,
+        a.recieve,
+        a.receipt,
         b.user_name
         FROM order_info a, sys_user b
         WHERE b.user_id = #{userId} and a.order_id = #{orderId}

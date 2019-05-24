@@ -15,6 +15,27 @@ public class MyOrders {
     private String productPrice;
     private int quantity;
     private String orderType;
+    private boolean recieve;
+    private boolean receipt;
+
+    public boolean isReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(boolean receipt) {
+        this.receipt = receipt;
+    }
+
+
+
+    public boolean isRecieve() {
+        return recieve;
+    }
+
+    public void setRecieve(boolean recieve) {
+        this.recieve = recieve;
+    }
+
 
     private List<OrderGoods> orderGoods;
 

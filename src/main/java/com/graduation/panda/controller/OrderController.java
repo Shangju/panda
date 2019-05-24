@@ -314,4 +314,20 @@ public class OrderController {
         orderService.updateByPrimaryKey(orderInfo);
         return HttpResult.ok();
     }
+
+    /**
+     * 更新订单状态
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/reSure")
+    @ResponseBody
+    public HttpResult reSure(@RequestBody HashMap map){
+        String orderId = map.get("orderId").toString();
+        OrderInfo orderInfo = orderService.findByOrderId(orderId);
+        orderInfo.setRecieve(true);
+        orderService.updateByPrimaryKey(orderInfo);
+        return HttpResult.ok();
+    }
 }

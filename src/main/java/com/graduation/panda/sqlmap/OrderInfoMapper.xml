@@ -4,12 +4,12 @@
     <resultMap id="BaseResultMap" type="com.graduation.panda.model.OrderInfo">
         <id column="order_id" jdbcType="VARCHAR" property="orderId" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
-        <result column="order_type" jdbcType="VARCHAR" property="orderType" />
-        <result column="total_price" jdbcType="VARCHAR" property="totalPrice" />
+        <result column="order_type" jdbcType="VARCHAR" property="orderType"/>
+        <result column="total_price" jdbcType="VARCHAR" property="totalPrice"/>
         <result column="pay" jdbcType="BOOLEAN" property="pay" />
-        <result column="receipt" jdbcType="BOOLEAN" property="receipt" />
-        <result column="ship_time" jdbcType="VARCHAR" property="shipTime" />
-        <result column="create_time" jdbcType="DATE" property="createTime" />
+        <result column="receipt" jdbcType="BOOLEAN" property="receipt"/>
+        <result column="ship_time" jdbcType="VARCHAR" property="shipTime"/>
+        <result column="create_time" jdbcType="DATE" property="createTime"/>
         <result column="status" jdbcType="BOOLEAN" property="status" />
         <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
         <result column="recieve" jdbcType="BOOLEAN" property="recieve" />

@@ -105,6 +105,7 @@ public class SysLoginController {
             //如果没有查到信息，就存入该userId
             if (user == null){
                 sysUser.setUserId(userId);
+                sysUser.setUserKind("普通会员");
                 flag = false;
             }
         }
