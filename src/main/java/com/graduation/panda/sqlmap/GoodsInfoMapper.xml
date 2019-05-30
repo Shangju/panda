@@ -102,6 +102,9 @@
             <if test="keyword != null">
                 keyword = #{keyword,jdbcType=VARCHAR},
             </if>
+            <if test="stock != null">
+                stock = #{stock,jdbcType=VARCHAR},
+            </if>
             <if test="image != null">
                 image = #{image,jdbcType=VARCHAR},
             </if>
@@ -113,4 +116,11 @@
         select * from goods_info
         where goods_id = #{goodsId,jdbcType=VARCHAR}
     </select>
+
+    <insert id="insertGoods" parameterType="com.graduation.panda.model.SysUser">
+        insert into goods_info (goods_id, goods_name, market_name,
+        sell_price, goods_introduce, keyword,image,sub_images,detail,stock)
+        values (#{goodsId}, #{goodsName}, #{marketName},
+        #{sellPrice}, #{goodsIntroduce}, #{keyword}, #{image}, #{subImages}, #{detail},#{stock})
+    </insert>
 </mapper>

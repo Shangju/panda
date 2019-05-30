@@ -14,7 +14,7 @@ public class UserAddress {
     private boolean dataFlag;
     private Date createTime;
 
-    public long getAddressId() {
+    public int getAddressId() {
         return addressId;
     }
 

@@ -15,22 +15,22 @@
     </resultMap>
 
     <select id="findByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select * from user_Address
+        select * from user_address
         where user_id = #{userId,jdbcType=VARCHAR} and data_flag = TRUE
     </select>
 
     <select id="findByAddressId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select * from user_Address
+        select * from user_address
         where address_id = #{addressId}
     </select>
 
     <select id="findDefaultAddress" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select * from user_Address
+        select * from user_address
         where user_id = #{userId,jdbcType=VARCHAR} and data_flag = TRUE and default_status = true
     </select>
 
     <select id="findByAddress" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select * from user_Address
+        select * from user_address
         where user_id = #{userId,jdbcType=VARCHAR} and data_flag = TRUE and user_address = #{userAddress}
     </select>
 
@@ -60,11 +60,11 @@
             <if test="userAddress != null">
                 user_address = #{userAddress},
             </if>
-            <if test="areaName != null">
-                area_name = #{areaName},
-            </if>
         </set>
-        where user_id = #{userId} and data_flag = true and default_status = true
+        where user_id = #{userId} and address_id = #{addressId} and data_flag = true
     </update>
-
+    <delete id="deleteAddress" parameterType="java.lang.Integer">
+        delete from user_address
+        where address_id = #{addressId,jdbcType=BIGINT}
+    </delete>
 </mapper>

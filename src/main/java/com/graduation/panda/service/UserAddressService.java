@@ -37,4 +37,11 @@ public interface UserAddressService {
      * @param userAddress
      */
     void updateAddress(UserAddress userAddress);
+
+    /**
+     * 删除收货地址
+     * @param addressId
+     */
+    void deleteAddress(int addressId);
+
 }

@@ -39,4 +39,6 @@ public interface UserAddressMapper {
      * @param userAddress
      */
     void updateAddress(UserAddress userAddress);
+
+    void deleteAddress(int addressId);
 }

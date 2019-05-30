@@ -33,7 +33,7 @@ public class UserAddressServiceImpl implements UserAddressService{
     public void insertAddress(UserAddress address){
         Date now = new Date();
         address.setCreateTime(now);
-        address.setDefaultStatus(true);
+//        address.setDefaultStatus(true);
         address.setDataFlag(true);
         userAddressMapper.insertAddress(address);
     }
@@ -41,5 +41,10 @@ public class UserAddressServiceImpl implements UserAddressService{
     @Override
     public void updateAddress(UserAddress address){
         userAddressMapper.updateAddress(address);
+    }
+
+    @Override
+    public void deleteAddress(int addressId) {
+        userAddressMapper.deleteAddress(addressId);
     }
 }

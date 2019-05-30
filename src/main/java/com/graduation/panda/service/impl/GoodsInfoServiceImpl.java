@@ -75,4 +75,9 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
         return goodsInfoMapper.findByGoodsId(goodsId);
     }
 
+    @Override
+    public void insertGoods(GoodsInfo goodsInfo) {
+        goodsInfoMapper.insertGoods(goodsInfo);
+    }
+
 }

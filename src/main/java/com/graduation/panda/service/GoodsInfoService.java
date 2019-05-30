@@ -51,4 +51,7 @@ public interface GoodsInfoService {
 
     //商品详情
     GoodsInfo findByGoodsId(String goodsId);
+
+    //添加商品
+    void insertGoods(GoodsInfo goodsInfo);
 }

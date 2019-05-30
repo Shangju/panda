@@ -39,9 +39,16 @@ public class MakeNumberUtils {
     }
 
     /**
-     * 配送员员工编号
-     * @param args
+     * 随机数产生
+     * @param
      */
+    public static String numMake(){
+        StringBuilder str = new StringBuilder("L");
+        for(int i = 0; i < 10; i++){
+            str.append((int) (1 + Math.random() * 9));
+        }
+        return str.toString();
+    }
 
     /**
      * 代购员员工编号

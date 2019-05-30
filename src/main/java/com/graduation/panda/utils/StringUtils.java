@@ -7,6 +7,7 @@ package com.graduation.panda.utils;
  */
 public class StringUtils {
 
+	public static String savedPath = "";
 	/**
 	 * 判空操作
 	 * @param value

@@ -17,6 +17,17 @@ public class MyOrders {
     private String orderType;
     private boolean recieve;
     private boolean receipt;
+    private String userAddress;
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
+
 
     public boolean isReceipt() {
         return receipt;

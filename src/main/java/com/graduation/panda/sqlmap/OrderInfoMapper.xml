@@ -97,6 +97,9 @@
             <if test="recieve != null">
                 recieve = #{recieve,jdbcType=VARCHAR},
             </if>
+            <if test="userAddress != null">
+                user_address = #{userAddress,jdbcType=VARCHAR},
+            </if>
         </set>
         where order_id = #{orderId}
     </update>

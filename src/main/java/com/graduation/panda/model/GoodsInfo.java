@@ -12,6 +12,15 @@ public class GoodsInfo {
     private String subImages;
     private String detail;
     private int stock;
+    private String userAddress;
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
 
     public String getSubImages() {
         return subImages;

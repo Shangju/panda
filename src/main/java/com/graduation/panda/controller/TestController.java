@@ -5,6 +5,8 @@ import com.graduation.panda.model.AlipayBean;
 import com.graduation.panda.service.PayService;
 import com.graduation.panda.service.TestService;
 import com.graduation.panda.service.impl.TestServiceImp;
+import com.graduation.panda.utils.MakeNumberUtils;
+import com.graduation.panda.utils.StringUtils;
 import com.sun.org.apache.xml.internal.security.keys.KeyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -96,17 +99,24 @@ public class TestController {
     @ResponseBody
     public String uploadImage(@RequestParam("file") MultipartFile uploadFile){
         /*存储服务器目录*/
-        String savedDir = "E:\\Test\\panda-admin\\static\\img";
-        String fileName = "\\test.jpg";
+        String savedDir = "E:\\Test\\panda-admin\\static\\img\\goods";
+        String fileName = "\\" + MakeNumberUtils.numMake() + ".jpg";
+        String filePath = "../../static/img/goods"+ fileName;
 
         //存入服务器指定路径
         File savedFile = new File(savedDir+fileName);
+        File saveFile2 = new File("E:\\Vue\\panda-ui\\static\\img\\goods"+fileName);
         try {
             if (!savedFile.getParentFile().exists()) {
                 savedFile.mkdirs();
             }
+            if(!saveFile2.getParentFile().exists()){
+                saveFile2.mkdirs();
+            }
             uploadFile.transferTo(savedFile);  //转存文件
+            Files.copy(savedFile.toPath(), saveFile2.toPath());
             System.out.println(savedFile);
+            StringUtils.savedPath = filePath;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
